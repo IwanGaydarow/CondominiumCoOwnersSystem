@@ -1,9 +1,8 @@
 ﻿namespace CondominiumCoOwnersSystem.Web.ViewModels.Settings
 {
+    using AutoMapper;
     using CondominiumCoOwnersSystem.Data.Models;
     using CondominiumCoOwnersSystem.Services.Mapping;
-
-    using AutoMapper;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {

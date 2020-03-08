@@ -5,6 +5,7 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using CommandLine;
     using CondominiumCoOwnersSystem.Data;
     using CondominiumCoOwnersSystem.Data.Common;
     using CondominiumCoOwnersSystem.Data.Common.Repositories;
@@ -13,8 +14,6 @@
     using CondominiumCoOwnersSystem.Data.Seeding;
     using CondominiumCoOwnersSystem.Services.Data;
     using CondominiumCoOwnersSystem.Services.Messaging;
-
-    using CommandLine;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
