@@ -4,10 +4,9 @@
 
     using CondominiumCoOwnersSystem.Data.Common.Models;
 
-    public class CompanyType : BaseDeletableModel<int>
+    public class Utility : BaseModel<int>
     {
         [Required]
-        [StringLength(150)]
-        public string TypeOfServices { get; set; }
+        public string Name { get; set; }
     }
 }

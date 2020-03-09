@@ -4,12 +4,15 @@
 
     using CondominiumCoOwnersSystem.Data.Common.Models;
 
-    public class FundRepair : BaseDeletableModel<int>
+    public class BuildingAdditionalRepairs : BaseDeletableModel<int>
     {
-        public decimal Fee { get; set; }
+        [Required]
+        public string MadeBy { get; set; }
 
         [Required]
-        public string TypeOfDestribution { get; set; }
+        public string Description { get; set; }
+
+        public decimal Cost { get; set; }
 
         public int BuildingId { get; set; }
 

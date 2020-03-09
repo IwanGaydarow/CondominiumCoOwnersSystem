@@ -11,18 +11,19 @@
         public Building()
         {
             this.Apartments = new HashSet<Apartment>();
-            this.CompanyServiceSubscriptions = new HashSet<CompanyServiceSubscription>();
+            this.BuildingServiceSubscriptions = new HashSet<BuildingServiceSubscription>();
+            this.BuildingUtilityBills = new HashSet<BuildingUtilityBills>();
+            this.BuildingAdditionalRepairs = new HashSet<BuildingAdditionalRepairs>();
         }
 
         [StringLength(20)]
         public string Name { get; set; }
 
+        [Required]
         [StringLength(150)]
         public string FullAddress { get; set; }
 
         public PaymentMethod PaymentMethod { get; set; }
-
-        public decimal TotalFundRepair { get; set; }
 
         public int FundRepairId { get; set; }
 
@@ -30,6 +31,10 @@
 
         public virtual ICollection<Apartment> Apartments { get; set; }
 
-        public virtual ICollection<CompanyServiceSubscription> CompanyServiceSubscriptions { get; set; }
+        public virtual ICollection<BuildingServiceSubscription> BuildingServiceSubscriptions { get; set; }
+
+        public virtual ICollection<BuildingUtilityBills> BuildingUtilityBills { get; set; }
+
+        public virtual ICollection<BuildingAdditionalRepairs> BuildingAdditionalRepairs { get; set; }
     }
 }

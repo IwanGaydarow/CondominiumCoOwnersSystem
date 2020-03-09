@@ -6,6 +6,7 @@
 
     public class Service : BaseDeletableModel<int>
     {
+        [Required]
         [StringLength(300)]
         public string Description { get; set; }
     }

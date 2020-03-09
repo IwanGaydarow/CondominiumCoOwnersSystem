@@ -26,6 +26,28 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Building> Buildings { get; set; }
+
+        public DbSet<BuildingUtilityBills> BuildingUtilityBills { get; set; }
+
+        public DbSet<Utility> Utilities { get; set; }
+
+        public DbSet<BuildingAdditionalRepairs> BuildingAdditionalRepairs { get; set; }
+
+        public DbSet<FundRepair> FundRepairs { get; set; }
+
+        public DbSet<ApartmentMontlyObligation> ApartmentMontlyObligations { get; set; }
+
+        public DbSet<BuildingServiceSubscription> BuildingServiceSubscriptions { get; set; }
+
+        public DbSet<CompanyMontlyServiceFee> CompanyMontlyServiceFees { get; set; }
+
+        public DbSet<Service> Services { get; set; }
+
+        public DbSet<Company> Companies { get; set; }
+
+        public DbSet<CompanyType> CompanyTypes { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
