@@ -2,12 +2,13 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using CondominiumCoOwnersSystem.Common;
     using CondominiumCoOwnersSystem.Data.Common.Models;
 
     public class Service : BaseDeletableModel<int>
     {
         [Required]
-        [StringLength(300)]
+        [StringLength(GlobalConstants.ServiceDescriptionLenght)]
         public string Description { get; set; }
     }
 }

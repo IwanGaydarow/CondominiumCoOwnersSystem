@@ -13,6 +13,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200309171241_ChangeMontlyServiceFeeRelation.cs" />
     <Compile Remove="Migrations\20200309171241_ChangeMontlyServiceFeeRelation.Designer.cs" />
+    <Compile Remove="Migrations\20200310112529_changedColumnAdressInBuildigTableAndAddingCityTable.cs" />
+    <Compile Remove="Migrations\20200310112529_changedColumnAdressInBuildigTableAndAddingCityTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

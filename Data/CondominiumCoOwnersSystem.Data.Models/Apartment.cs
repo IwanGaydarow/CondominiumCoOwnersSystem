@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using CondominiumCoOwnersSystem.Common;
     using CondominiumCoOwnersSystem.Data.Common.Models;
 
     public class Apartment : BaseDeletableModel<int>
@@ -14,7 +14,7 @@
 
         public int Number { get; set; }
 
-        [Range(0, 30)]
+        [Range(GlobalConstants.MinApartmentFloor, GlobalConstants.MaxApartmentFloor)]
         public int Floor { get; set; }
 
         public int BuildingId { get; set; }

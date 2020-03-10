@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using CondominiumCoOwnersSystem.Common;
     using CondominiumCoOwnersSystem.Data.Common.Models;
     using CondominiumCoOwnersSystem.Data.Models.Enums;
 
@@ -16,18 +16,22 @@
             this.BuildingAdditionalRepairs = new HashSet<BuildingAdditionalRepairs>();
         }
 
-        [StringLength(20)]
+        [StringLength(GlobalConstants.BuildingNameLenght)]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(150)]
-        public string FullAddress { get; set; }
+        [StringLength(GlobalConstants.BuildingStreetLenght)]
+        public string Street { get; set; }
 
         public PaymentMethod PaymentMethod { get; set; }
 
         public int FundRepairId { get; set; }
 
         public FundRepair FundRepair { get; set; }
+
+        public int CityId { get; set; }
+
+        public City City { get; set; }
 
         public virtual ICollection<Apartment> Apartments { get; set; }
 
