@@ -28,6 +28,8 @@
 
         public DbSet<Building> Buildings { get; set; }
 
+        public DbSet<Apartment> Apartments { get; set; }
+
         public DbSet<BuildingUtilityBills> BuildingUtilityBills { get; set; }
 
         public DbSet<Utility> Utilities { get; set; }

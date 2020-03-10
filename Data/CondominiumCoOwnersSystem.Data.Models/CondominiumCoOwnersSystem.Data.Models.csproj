@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CondominiumCoOwnersSystem.Common\CondominiumCoOwnersSystem.Common.csproj" />
     <ProjectReference Include="..\CondominiumCoOwnersSystem.Data.Common\CondominiumCoOwnersSystem.Data.Common.csproj" />
   </ItemGroup>
   

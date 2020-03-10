@@ -27,6 +27,19 @@
                           {
                               new RolesSeeder(),
                               new SettingsSeeder(),
+                              new UtilitySeeder(),
+                              new CitySeeder(),
+                              new CompanyTypeSeeder(),
+                              new CompaniesSeeder(),
+                              new BuildingSeeder(),
+                              new FundRepairSeeder(),
+                              new BuildingUtilityBillsSeeder(),
+                              new ApartmentSeeder(),
+                              new ApartmentMontlyObligationsSeeder(),
+                              new BuildingAdditioanlRepairsSeeder(),
+                              new BuildingServiceSubscriptionSeeder(),
+                              new ServicesSeeder(),
+                              new CompanyMontlyServiceFeeSeeder(),
                           };
 
             foreach (var seeder in seeders)

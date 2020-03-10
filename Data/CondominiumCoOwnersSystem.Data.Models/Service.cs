@@ -10,5 +10,9 @@
         [Required]
         [StringLength(GlobalConstants.ServiceDescriptionLenght)]
         public string Description { get; set; }
+
+        public int BuildingServiceSubscriptionId { get; set; }
+
+        public BuildingServiceSubscription BuildingServiceSubscription { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     using CondominiumCoOwnersSystem.Common;
     using CondominiumCoOwnersSystem.Data.Common.Models;
     using CondominiumCoOwnersSystem.Data.Models.Enums;
