@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\CondominiumCoOwnersSystem.Data.Models\CondominiumCoOwnersSystem.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\CondominiumCoOwnersSystem.Services.Mapping\CondominiumCoOwnersSystem.Services.Mapping.csproj" />
+    <ProjectReference Include="..\CondominiumCoOwnersSystem.Web.Infrastructure\CondominiumCoOwnersSystem.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
