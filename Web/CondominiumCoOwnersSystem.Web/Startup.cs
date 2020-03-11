@@ -9,6 +9,7 @@
     using CondominiumCoOwnersSystem.Data.Repositories;
     using CondominiumCoOwnersSystem.Data.Seeding;
     using CondominiumCoOwnersSystem.Services.Data;
+    using CondominiumCoOwnersSystem.Services.Data.ContactServices;
     using CondominiumCoOwnersSystem.Services.Mapping;
     using CondominiumCoOwnersSystem.Services.Messaging;
     using CondominiumCoOwnersSystem.Web.ViewModels;
@@ -59,6 +60,7 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IContactService, ContactService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

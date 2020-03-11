@@ -6,6 +6,8 @@
 
         public const string AdministratorRoleName = "Administrator";
 
+        public const string SystemEmail = "iwan.gaidarow@gmail.com";
+
         public const int CityNameLenght = 100;
 
         public const int BuildingNameLenght = 20;
