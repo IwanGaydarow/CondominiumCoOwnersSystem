@@ -24,20 +24,47 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">НАЧАЛО</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Settings" asp-action="Index">ВЪПРОСИ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Contacts" asp-action="Index">КОНТАКТИ</a>
-                        </li>
-                    </ul>
-                </div>
+                @if (!this.User.Identity.IsAuthenticated)
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial" />
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">НАЧАЛО</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Questions">ВЪПРОСИ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Contacts" asp-action="Index">КОНТАКТИ</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial" />
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Apartmеnts" asp-action="Index">Апартаменти</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                    Справки
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Reports" asp-action="Оbligations">Задължения</a>
+                                    <a class="dropdown-item" asp-controller="Reports" asp-action="Index">Очет</a>
+                                    <a class="dropdown-item" asp-controller="Reports" asp-action="Companies">Справки на фирми</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Contacts" asp-action="Index">Решения</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
             </div>
         </nav>
     </header>
@@ -50,8 +77,18 @@
     </div>
     
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="col-sm-4 d-inline-block" >
+            <div class="container">
+                &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </div>
+        <div class="col-sm-4 d-inline-block">
+            <br />Полезни линкове
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </li>
+            </ul>
         </div>
     </footer>
 

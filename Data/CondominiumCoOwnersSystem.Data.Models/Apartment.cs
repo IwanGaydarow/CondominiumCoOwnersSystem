@@ -18,6 +18,9 @@
         [Range(GlobalConstants.MinApartmentFloor, GlobalConstants.MaxApartmentFloor)]
         public int Floor { get; set; }
 
+        [Range(0, 15)]
+        public int Inhabitants { get; set; }
+
         public int BuildingId { get; set; }
 
         public Building Building { get; set; }

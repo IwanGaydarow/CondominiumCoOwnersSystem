@@ -15,7 +15,7 @@
             this.contactsRepository = repository;
         }
 
-        public async Task CreateContactEntry(ContactFormViewModel model, string ip)
+        public async Task CreateContactEntryAsync(ContactFormViewModel model, string ip)
         {
             var contactForm = new ContactFormEntry
             {

@@ -1,0 +1,16 @@
+﻿@model CondominiumCoOwnersSystem.Web.ViewModels.Apartmеnts.AllApartmentViewModel
+@{
+    this.ViewData["Title"] = "Apartments";
+}
+
+<div class="card">
+    @foreach (var apartment in Model.Apartments)
+    {
+        <div class="card-body mb-2">
+            <h5 class="card-title">Апартамент @apartment.Number</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@apartment.Address</h6>
+            <p class="card-text">Подробна информация:</p>
+            <a class="card-link" asp-area="" asp-controller="Apartmеnts" asp-action="Details" asp-route-apartmentId="@apartment.Id">Информация</a>
+        </div>
+    }
+</div>

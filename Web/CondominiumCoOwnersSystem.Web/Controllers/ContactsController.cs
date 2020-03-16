@@ -3,8 +3,6 @@
     using System.Threading.Tasks;
 
     using CondominiumCoOwnersSystem.Common;
-    using CondominiumCoOwnersSystem.Data.Common.Repositories;
-    using CondominiumCoOwnersSystem.Data.Models;
     using CondominiumCoOwnersSystem.Services.Data.ContactServices;
     using CondominiumCoOwnersSystem.Services.Messaging;
     using CondominiumCoOwnersSystem.Web.ViewModels.Contacts;
@@ -36,7 +34,7 @@
 
             var ip = this.HttpContext.Connection.RemoteIpAddress.ToString();
 
-            await this.contactService.CreateContactEntry(model, ip);
+            await this.contactService.CreateContactEntryAsync(model, ip);
 
             await this.emailSender.SendEmailAsync(
                 model.Name,
