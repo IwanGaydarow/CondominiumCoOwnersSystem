@@ -3,14 +3,32 @@
     this.ViewData["Title"] = "Apartments";
 }
 
-<div class="card">
-    @foreach (var apartment in Model.Apartments)
-    {
-        <div class="card-body mb-2">
-            <h5 class="card-title">Апартамент @apartment.Number</h5>
-            <h6 class="card-subtitle mb-2 text-muted">@apartment.Address</h6>
-            <p class="card-text">Подробна информация:</p>
-            <a class="card-link" asp-area="" asp-controller="Apartmеnts" asp-action="Details" asp-route-apartmentId="@apartment.Id">Информация</a>
-        </div>
-    }
+<div nav-link text-lg-left>
+    <a class="btn btn-success" asp-area="" asp-controller="Apartmеnts" asp-action="AddApartmentToUser">Добави</a>
 </div>
+
+<hr />
+
+<div class="card">
+    @if (Model.Apartments.Any())
+    {
+        foreach (var apartment in Model.Apartments)
+        {
+            <div class="card-body mb-2">
+                <h5 class="card-title">Апартамент @apartment.Number</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@apartment.Address</h6>
+                <p class="card-text">Подробна информация:</p>
+                <a class="card-link" asp-area="" asp-controller="Apartmеnts" asp-action="Details" asp-route-apartmentId="@apartment.Id">Информация</a>
+                <div class="nav-link text-md-right">
+                    <a class="btn btn-danger" asp-area="" asp-controller="Apartmеnts" asp-action="RemoveApartment" asp-route-apartmentId="@apartment.Id">
+                        Премахни
+                    </a>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h6>Няма добавени апартаменти.</h6>
+    }
+</div> 

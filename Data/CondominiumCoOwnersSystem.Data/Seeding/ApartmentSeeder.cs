@@ -15,8 +15,8 @@
                 return;
             }
 
-            await dbContext.Apartments.AddAsync(
-                new Apartment { BuildingId = 2, Floor = 2, Number = 14, UserId = "a1aa327e-346b-48b9-8c4f-aeca9922c8b0" });
+            //await dbContext.Apartments.AddAsync(
+              //  new Apartment { BuildingId = 2, Floor = 2, Number = 14, UserId = "a1aa327e-346b-48b9-8c4f-aeca9922c8b0" });
         }
     }
 }
