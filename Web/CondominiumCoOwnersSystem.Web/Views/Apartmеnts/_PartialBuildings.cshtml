@@ -5,5 +5,9 @@
 }
 
 <label asp-for="BuildingId">Изберете сграда:</label>
-<select id="selectedBuilding" asp-for="BuildingId" asp-items="buildings" class="form-control" onclick="loadApartments()"></select>
+<select id="selectedBuilding" asp-for="BuildingId" asp-items="buildings" class="form-control" onchange="loadApartments()">
+    <option>
+        Изберете апартаманет...
+    </option>
+</select>
 <span asp-validation-for="BuildingId" class="text-danger"></span>

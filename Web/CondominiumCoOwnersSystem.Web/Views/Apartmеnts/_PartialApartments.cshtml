@@ -4,19 +4,39 @@
     var apartments = Model.Apartments.Select(x => new SelectListItem(x.Number.ToString(), x.Id.ToString()));
 }
 
-<label asp-for="ApartmentId">Изберете номер на вашият апартамент:</label>
-<select id="selectedApartment" asp-for="ApartmentId" asp-items="apartments" class="form-control"></select>
-<span asp-validation-for="ApartmentId" class="text-danger"></span>
+@if (apartments.Count() == 0)
+{
+    <hr />
+    <span onstalled="alert" class="alert-danger">Всички апартаменти в сградата имат посочен собственик. Ако е възникнала грешка моля свържете се с нас <a asp-controller="Contacts" asp-action="Index">Контактна Форма.</a></span>
+}
+else
+{
+    <label asp-for="ApartmentId">Изберете номер на вашият апартамент:</label>
+    <select id="selectedApartment" asp-for="ApartmentId" asp-items="apartments" class="form-control">
+        <option>
+            Изберете апартамент...
+        </option>
+    </select>
+    <span asp-validation-for="ApartmentId" class="text-danger"></span>
 
 
-<div class="form-group">
-    <label asp-for="Floor">Етаж:</label>
-    <input asp-for="Floor" class="form-control" required min="0" max="50"/>
-    <span asp-validation-for="Floor" class="text-danger"></span>
-</div>
-<div class="form-group">
-    <label asp-for="Inhabitant">Брой обитатели:</label>
-    <input type="number" asp-for="Inhabitant" class="form-control" required min="0" max="8"/>
-    <span asp-validation-for="Inhabitant" class="text-danger"></span>
-</div>
-<button type="submit" class="btn btn-success">Добавете апартамент</button>
+    <div class="form-group">
+        <label asp-for="Floor">Етаж:</label>
+        <input asp-for="Floor" class="form-control" required min="0" max="50" />
+        <span asp-validation-for="Floor" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Inhabitant">Брой обитатели:</label>
+        <input type="number" asp-for="Inhabitant" class="form-control" required min="0" max="8" />
+        <span asp-validation-for="Inhabitant" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Добавете апартамент</button>
+}
+
+@section Scripts {
+    <script>
+        function alert()
+        $('#nullDropDown')
+            .alert("Всички апартаменти в сградата имат посочен собственик. Ако е възникнала грешка моля свържете се с нас");
+    </script>
+}

@@ -7,7 +7,11 @@
 <form id="form" method="post">
     <div class="form-group">
         <label asp-for="CityId">Изберете град:</label>
-        <select id="selectedCity" asp-for="CityId" asp-items="cities" class="form-control" onchange="loadBuildings()"></select>
+        <select id="selectedCity" asp-for="CityId" asp-items="cities" class="form-control" onchange="loadBuildings()">
+            <option>
+                Изберете град...
+            </option>
+        </select>
         <span asp-validation-for="CityId" class="text-danger"></span>
     </div>
 
