@@ -17,6 +17,7 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc.DataAnnotations;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -62,6 +63,8 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IContactService, ContactService>();
             services.AddTransient<IApartmentService, ApartmentService>();
+            services.AddTransient<ICitiesService, CitiesService>();
+            services.AddTransient<IBuildingsService, BuildingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

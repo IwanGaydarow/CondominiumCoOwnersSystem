@@ -1,13 +1,58 @@
-﻿@{
+﻿@model CondominiumCoOwnersSystem.Web.ViewModels.Apartmеnts.AddApartmentToUserInputModel
+@{
     this.ViewData["Tittle"] = "AddApartment";
+    var cities = Model.Cities.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
 }
 
-<div class="form-group">
-    <label for="sel1">Изберете град:</label>
-    <select class="form-control" id="sel1">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-    </select>
-</div>
+<form id="form" method="post">
+    <div class="form-group">
+        <label asp-for="CityId">Изберете град:</label>
+        <select id="selectedCity" asp-for="CityId" asp-items="cities" class="form-control" onchange="loadBuildings()"></select>
+        <span asp-validation-for="CityId" class="text-danger"></span>
+    </div>
+
+    <div id="building"></div>
+
+    <div id="apartment"></div>
+</form>
+
+@section Scripts {
+    <script>
+        function loadBuildings() {
+            var cityId = document.getElementById("selectedCity").value;
+            $.ajax({
+                url: "/Apartmеnts/BuildingToAddApartment",
+                type: "GET",
+                data: {
+                    cityId: cityId
+                },
+                contentType: 'application/html; charset=utf-8',
+                dataType: "html",
+                success: function (data) {
+                    $('#building').html(data);
+                }
+            });
+        }
+    </script>
+    <script>
+        function loadApartments() {
+            var buildingId = document.getElementById("selectedBuilding").value;
+            $.ajax({
+                url: "/Apartmеnts/FreeApartmentsToAdd",
+                type: "GET",
+                data: {
+                    cityId: document.getElementById("selectedCity").value,
+                    buildingId: buildingId
+                },
+                contentType: 'application/html; charset=utf-8',
+                dataType: "html",
+                success: function (data) {
+                    $('#apartment').html(data);
+                }
+            });
+        }
+    </script>
+    <script>
+        $('#form').validate();
+    </script>
+}

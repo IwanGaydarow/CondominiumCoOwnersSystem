@@ -1,0 +1,9 @@
+﻿@model CondominiumCoOwnersSystem.Web.ViewModels.Apartmеnts.AddApartmentToUserInputModel
+
+@{
+    var buildings = Model.Buildings.Select(x => new SelectListItem(x.Street, x.Id.ToString()));
+}
+
+<label asp-for="BuildingId">Изберете сграда:</label>
+<select id="selectedBuilding" asp-for="BuildingId" asp-items="buildings" class="form-control" onclick="loadApartments()"></select>
+<span asp-validation-for="BuildingId" class="text-danger"></span>
