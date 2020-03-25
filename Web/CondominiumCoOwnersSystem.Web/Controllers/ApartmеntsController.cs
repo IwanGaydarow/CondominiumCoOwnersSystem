@@ -55,6 +55,27 @@
             return this.View(details);
         }
 
+        public IActionResult EditApartment(int apartmentId)
+        {
+            var apartment =
+                this.apartmentService.GetApartmentById<EditApartmentInfoInputModel>(apartmentId);
+
+            return this.PartialView("_PartialEditApartment", apartment);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditApartment(EditApartmentInfoInputModel apartmentToEdit)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(apartmentToEdit);
+            }
+
+            await this.apartmentService.EditApartment(apartmentToEdit.Id, apartmentToEdit.Floor, apartmentToEdit.Inhabitants);
+
+            return this.RedirectToAction("Index");
+        }
+
         public IActionResult AddApartmentToUser()
         {
             var cities = this.citiesService.AllCities<AllCityViewModel>();
@@ -108,7 +129,7 @@
             await this.apartmentService.AddApartmentToUserAsync(
                 input.ApartmentId,
                 input.Floor,
-                input.Inhabitant,
+                input.Inhabitants,
                 userId);
 
             return this.RedirectToAction("Index");

@@ -9,7 +9,11 @@
 
         IEnumerable<T> GetAllFreeApartments<T>(int buildingId);
 
+        T GetApartmentById<T>(int apartmentId);
+
         T GetApartmentDetails<T>(int apartmentId);
+
+        Task EditApartment(int apartmentId, int floor, int inhabitants);
 
         Task RemoveApartmentFromUser(int apartmentId);
 

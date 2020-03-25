@@ -1,0 +1,39 @@
+﻿@model CondominiumCoOwnersSystem.Web.ViewModels.Apartmеnts.EditApartmentInfoInputModel
+
+<form method="post">
+    <div class="card-body">
+        <div class="form-group d-inline-block">
+            <div>
+                <label asp-for="Floor"></label>
+                <input asp-for="Floor" type="number" class="form-control" />
+                <span asp-validation-for="Floor" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Inhabitants"></label>
+                <input asp-for="Inhabitants" type="number" class="form-control" />
+                <span asp-validation-for="Inhabitants" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+            <div>
+                <button type="submit" asp-action="EditApartment" class="btn btn-outline-success btn-sm"> Промени </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<environment names="Development">
+    <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</environment>
+<environment names="Staging,Production">
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+</environment>

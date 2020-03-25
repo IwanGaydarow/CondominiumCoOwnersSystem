@@ -20,15 +20,33 @@
                 <p class="card-text">Подробна информация:</p>
                 <a class="card-link" asp-area="" asp-controller="Apartmеnts" asp-action="Details" asp-route-apartmentId="@apartment.Id">Информация</a>
                 <div class="nav-link text-md-right">
+                    <a class="btn btn-warning" onclick="LoadInfoForm(@apartment.Id)">
+                        Промени информация
+                    </a>
                     <a class="btn btn-danger" asp-area="" asp-controller="Apartmеnts" asp-action="RemoveApartment" asp-route-apartmentId="@apartment.Id">
                         Премахни
                     </a>
                 </div>
             </div>
+            <div id="editIfnoField"></div>
+            <hr />
         }
     }
     else
     {
-        <h6>Няма добавени апартаменти.</h6>
+        <div class="alert alert-info" role="alert">
+            В момента нямате добавени апартаменти към вашият профил. Можете да добавите вашият апартамент от бутона Добави!
+        </div>
     }
-</div> 
+</div>
+
+@section Scripts {
+    <script>
+        function LoadInfoForm(data) {
+            $.get("/Apartmеnts/EditApartment?apartmentId=" + data,
+                function (data) {
+                    $('#editIfnoField').html(data);
+            });
+        }
+    </script>
+}

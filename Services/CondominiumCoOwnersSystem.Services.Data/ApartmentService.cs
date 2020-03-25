@@ -27,11 +27,39 @@
                 throw new NullReferenceException();
             }
 
-            apartment.UserId = userId;
-            apartment.Floor = floor;
-            apartment.Inhabitants = inhabitant;
-            apartment.IsDeleted = false;
+            if (apartment.UserId == userId
+                && apartment.Floor == floor
+                && apartment.Inhabitants == inhabitant)
+            {
+                this.apartmentRepository.Undelete(apartment);
+            }
+            else
+            {
+                apartment.UserId = userId;
+                apartment.Floor = floor;
+                apartment.Inhabitants = inhabitant;
+                apartment.IsDeleted = false;
+                apartment.ModifiedOn = null;
+            }
 
+            await this.apartmentRepository.SaveChangesAsync();
+        }
+
+        public async Task EditApartment(int apartmentId, int floor, int inhabitants)
+        {
+            var apartmentToEdit = this.apartmentRepository.All()
+                .Where(x => x.Id == apartmentId)
+                .FirstOrDefault();
+
+            if (apartmentToEdit == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            apartmentToEdit.Floor = floor;
+            apartmentToEdit.Inhabitants = inhabitants;
+
+            this.apartmentRepository.Update(apartmentToEdit);
             await this.apartmentRepository.SaveChangesAsync();
         }
 
@@ -47,6 +75,13 @@
             return this.apartmentRepository.AllWithDeleted()
                 .Where(x => x.BuildingId == buildingId && x.IsDeleted == true)
                 .To<T>().ToList();
+        }
+
+        public T GetApartmentById<T>(int apartmentId)
+        {
+            return this.apartmentRepository.All()
+                .Where(x => x.Id == apartmentId)
+                .To<T>().FirstOrDefault();
         }
 
         public T GetApartmentDetails<T>(int apartmentId)
