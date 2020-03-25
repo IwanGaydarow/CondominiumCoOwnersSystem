@@ -51,6 +51,7 @@
 
             services.AddControllersWithViews(options =>
             {
+                // XSRF - Prevent
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
             services.AddRazorPages();

@@ -1,7 +1,5 @@
 ﻿namespace CondominiumCoOwnersSystem.Web.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using CondominiumCoOwnersSystem.Data.Models;
@@ -35,7 +33,7 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
             var apartments = this.apartmentService
-                .GetAllApartments<ApartmentViewModel>(user.Id);
+                .GetAllApartmentsOfUser<ApartmentViewModel>(user.Id);
 
             var model = new AllApartmentViewModel { Apartments = apartments };
 
@@ -44,7 +42,7 @@
 
         public async Task<IActionResult> RemoveApartment(int apartmentId)
         {
-            await this.apartmentService.RemoveApartment(apartmentId);
+            await this.apartmentService.RemoveApartmentFromUser(apartmentId);
 
             return this.RedirectToAction("Index");
         }
@@ -52,7 +50,7 @@
         public IActionResult Details(int apartmentId)
         {
             var details = this.apartmentService
-                .GetDetails<ApartmentDetailsViewModel>(apartmentId);
+                .GetApartmentDetails<ApartmentDetailsViewModel>(apartmentId);
 
             return this.View(details);
         }
@@ -61,9 +59,11 @@
         {
             var cities = this.citiesService.AllCities<AllCityViewModel>();
             var viewModel = new AddApartmentToUserInputModel { Cities = cities };
+
             return this.View(viewModel);
         }
 
+        // TODO: Change model for AJAX request of buildings and apartments.
         public IActionResult BuildingToAddApartment(int cityId)
         {
             var buildings = this.buildingService
@@ -76,21 +76,36 @@
         public IActionResult FreeApartmentsToAdd(int buildingId, int cityId)
         {
             var apartments = this.apartmentService.GetAllFreeApartments<ApartmentDropDownViewModel>(buildingId);
-            var view = new AddApartmentToUserInputModel { CityId = cityId, BuildingId = buildingId, Apartments = apartments };
+            var view = new AddApartmentToUserInputModel
+            {
+                CityId = cityId,
+                BuildingId = buildingId,
+                Apartments = apartments,
+            };
 
             return this.PartialView("_PartialApartments", view);
         }
 
+        // TODO: After changing model for apartments and buildings, change ModelState not valid return.
         [HttpPost]
         public async Task<IActionResult> AddApartmentToUser(AddApartmentToUserInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.Json(new { success = false, errors = this.ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).ToList() });
+                var cities = this.citiesService.AllCities<AllCityViewModel>();
+                var buildings = this.buildingService
+                .GetAllBuildingsByCity<BuildingDropDownViewModel>(input.CityId);
+                var apartments = this.apartmentService.GetAllFreeApartments<ApartmentDropDownViewModel>(input.BuildingId);
+
+                input.Cities = cities;
+                input.Buildings = buildings;
+                input.Apartments = apartments;
+
+                return this.View("AddApartmentToUser", input);
             }
 
             var userId = this.userManager.GetUserId(this.User);
-            await this.apartmentService.AddApartmentAsync(
+            await this.apartmentService.AddApartmentToUserAsync(
                 input.ApartmentId,
                 input.Floor,
                 input.Inhabitant,

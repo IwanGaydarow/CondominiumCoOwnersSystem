@@ -8,7 +8,6 @@
     using CondominiumCoOwnersSystem.Data.Common.Repositories;
     using CondominiumCoOwnersSystem.Data.Models;
     using CondominiumCoOwnersSystem.Services.Mapping;
-    using Microsoft.AspNetCore.Identity;
 
     public class ApartmentService : IApartmentService
     {
@@ -19,7 +18,7 @@
             this.apartmentRepository = apartmentRepository;
         }
 
-        public async Task AddApartmentAsync(int apartmentId, int floor, int inhabitant, string userId)
+        public async Task AddApartmentToUserAsync(int apartmentId, int floor, int inhabitant, string userId)
         {
             var apartment = await this.apartmentRepository.GetByIdWithDeletedAsync(apartmentId);
 
@@ -36,7 +35,7 @@
             await this.apartmentRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllApartments<T>(string userId)
+        public IEnumerable<T> GetAllApartmentsOfUser<T>(string userId)
         {
             return this.apartmentRepository.All()
                 .Where(x => x.User.Id == userId && x.IsDeleted == false)
@@ -50,14 +49,14 @@
                 .To<T>().ToList();
         }
 
-        public T GetDetails<T>(int apartmentId)
+        public T GetApartmentDetails<T>(int apartmentId)
         {
             return this.apartmentRepository.AllWithDeleted()
                 .Where(x => x.Id == apartmentId)
                 .To<T>().FirstOrDefault();
         }
 
-        public async Task RemoveApartment(int apartmentId)
+        public async Task RemoveApartmentFromUser(int apartmentId)
         {
             var apartmentForDelete = await this.apartmentRepository
                 .GetByIdWithDeletedAsync(apartmentId);

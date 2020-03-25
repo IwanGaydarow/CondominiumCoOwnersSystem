@@ -16,8 +16,6 @@
 
         public IActionResult Companies()
         {
-            var buildingId = this.User.Identity.Name;
-
             return this.View();
         }
     }

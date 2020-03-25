@@ -5,14 +5,14 @@
 
     public interface IApartmentService
     {
-        IEnumerable<T> GetAllApartments<T>(string userId);
+        IEnumerable<T> GetAllApartmentsOfUser<T>(string userId);
 
         IEnumerable<T> GetAllFreeApartments<T>(int buildingId);
 
-        T GetDetails<T>(int apartmentId);
+        T GetApartmentDetails<T>(int apartmentId);
 
-        Task RemoveApartment(int apartmentId);
+        Task RemoveApartmentFromUser(int apartmentId);
 
-        Task AddApartmentAsync(int apartmentId, int floor, int inhabitant, string userId);
+        Task AddApartmentToUserAsync(int apartmentId, int floor, int inhabitant, string userId);
     }
 }

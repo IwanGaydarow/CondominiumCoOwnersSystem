@@ -1,11 +1,12 @@
-﻿using CondominiumCoOwnersSystem.Data.Common.Repositories;
-using CondominiumCoOwnersSystem.Data.Models;
-using CondominiumCoOwnersSystem.Services.Mapping;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace CondominiumCoOwnersSystem.Services.Data
+﻿namespace CondominiumCoOwnersSystem.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using CondominiumCoOwnersSystem.Data.Common.Repositories;
+    using CondominiumCoOwnersSystem.Data.Models;
+    using CondominiumCoOwnersSystem.Services.Mapping;
+
     public class BuildingService : IBuildingsService
     {
         private readonly IRepository<Building> buildingRepository;

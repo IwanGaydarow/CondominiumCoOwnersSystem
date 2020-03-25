@@ -1,7 +1,5 @@
 ﻿namespace CondominiumCoOwnersSystem.Web.ViewModels.Apartmеnts
 {
-    using System.Collections.Generic;
-
     using CondominiumCoOwnersSystem.Data.Models;
     using CondominiumCoOwnersSystem.Services.Mapping;
 
