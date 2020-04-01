@@ -39,6 +39,7 @@
             return this.View(buildings);
         }
 
+        // TODO: Refoctoring of this Action.
         public IActionResult BuildingInfo(int buildingId)
         {
             var buildingInfo = this.buildingService.GetBuildingById<InfoViewModel>(buildingId);
