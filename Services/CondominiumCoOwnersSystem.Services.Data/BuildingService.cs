@@ -16,11 +16,26 @@
             this.buildingRepository = buildingRepository;
         }
 
+        // Filtrate all building where user own apartment.
+        public IEnumerable<T> GetAllBuildingByUserId<T>(string userId)
+        {
+            return this.buildingRepository.All().Where(x =>
+                        x.Apartments.Any(y => y.UserId == userId))
+                        .To<T>().ToList();
+        }
+
         public IEnumerable<T> GetAllBuildingsByCity<T>(int cityId)
         {
             return this.buildingRepository.All()
                 .Where(x => x.CityId == cityId)
                 .To<T>().ToList();
+        }
+
+        public T GetBuildingById<T>(int buildingId)
+        {
+            return this.buildingRepository.All()
+                .Where(x => x.Id == buildingId)
+                .To<T>().FirstOrDefault();
         }
     }
 }

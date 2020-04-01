@@ -19,9 +19,15 @@
             var companies =
                 new List<Company>()
                 {
-                    new Company { Address = "Varna, Topola 14", CompanyTypeId = 1, Name = "MM Lifts" },
-                    new Company { Address = "Sofia, Kustendja 34", CompanyTypeId = 2, Name = "Clean Home" },
-                    new Company { Address = "Plovdiv, Trakia, Topola 54", CompanyTypeId = 1, Name = "Plovdiv Lift" },
+                    new Company { Name = "София Лифт", Address = "София, ул.Стражица 45", Email = "sofialift@abv.bg", CompanyTypeId = 1 },
+                    new Company { Name = "Пловдив Лифт", Address = "Пловдив, ул.Кайлъшка 205", Email = "plovdivlift@abv.bg", CompanyTypeId = 1 },
+                    new Company { Name = "Варна Лифт", Address = "Варна, ул. Поп Харитон 87", Email = "varnalift@abv.bg", CompanyTypeId = 1 },
+                    new Company { Name = "Поли Фреш", Address = "Варна, ул.Сливница 45", Email = "cvetifresh@abv.bg", CompanyTypeId = 2 },
+                    new Company { Name = "Цвети Фреш", Address = "Пловдив, ул.Подвис 1", Email = "cvetifresh@abv.bg", CompanyTypeId = 2 },
+                    new Company { Name = "София Фреш", Address = "София, ул.Стрелча 4", Email = "sofiafresh@abv.bg", CompanyTypeId = 2 },
+                    new Company { Name = "Цветен свят", Address = "София, ул.Подвис 113", Email = "colorgarden@abv.bg", CompanyTypeId = 3 },
+                    new Company { Name = "ММ Врати", Address = "Варна, ул.Подвис 12", Email = "mmdoors@abv.bg", CompanyTypeId = 4 },
+                    new Company { Name = "Гаражни Врати АД", Address = "Пловдив, ул.Прилеп 43", Email = "parkingdoors@abv.bg", CompanyTypeId = 4 },
                 };
 
             foreach (var company in companies)

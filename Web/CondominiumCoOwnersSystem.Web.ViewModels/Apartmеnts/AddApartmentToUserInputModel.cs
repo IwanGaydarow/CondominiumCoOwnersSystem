@@ -8,12 +8,8 @@
     using CondominiumCoOwnersSystem.Services.Mapping;
 
     // TODO: extract Validation Constat
-    public class AddApartmentToUserInputModel : IMapTo<Apartment>, IMapFrom<Apartment>, IHaveCustomMappings
+    public class AddApartmentToUserInputModel : IMapTo<Apartment>, IMapFrom<Apartment>
     {
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Моля въведете вашият номер на етаж!")]
-        [Range(0, 50, ErrorMessage ="Етажа трябва да бъде между 0 и 50.")]
-        public int Floor { get; set; }
-
         [Required(AllowEmptyStrings = false, ErrorMessage = "Моля изберете вашият апартамент!")]
         [Display(Name = "Апартамент:")]
         public int ApartmentId { get; set; }
@@ -21,7 +17,7 @@
         public IEnumerable<ApartmentDropDownViewModel> Apartments { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Моля въведете броят живущи в апартамента!")]
-        [Range(0, 8, ErrorMessage ="Моля въведете актуален брой обитатели.")]
+        [Range(0, 8, ErrorMessage = "Моля въведете актуален брой обитатели.")]
         public int Inhabitants { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Моля изберете вашата сграда!")]
@@ -35,11 +31,5 @@
         public int CityId { get; set; }
 
         public IEnumerable<AllCityViewModel> Cities { get; set; }
-
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<Apartment, AddApartmentToUserInputModel>().ForMember(
-                x => x.ApartmentId, v => v.MapFrom(x => x.Id));
-        }
     }
 }

@@ -9,23 +9,31 @@
 
     public class ReportService : IReportsService
     {
-        private readonly IRepository<Company> repository;
-        private readonly IRepository<Apartment> apartmentRepository;
+        private readonly IDeletableEntityRepository<BuildingServiceSubscription> serviceRepository;
 
-        public ReportService(
-            IRepository<Company> repository,
-            IRepository<Apartment> apartmentRepository)
+        public ReportService(IDeletableEntityRepository<BuildingServiceSubscription> serviceRepository)
         {
-            this.repository = repository;
-            this.apartmentRepository = apartmentRepository;
+            this.serviceRepository = serviceRepository;
         }
 
-        public IEnumerable<T> GetAllCompaniesInCondominium<T>(int buildingId)
+        /// <summary>
+        /// Taking all oldest records for BuildingServiceSubscription table. Using this to inform user about
+        /// all companies service in a building and from how long they servd.
+        /// </summary>
+        /// <returns>
+        /// BuildingServiceSubscriptionViewModel with info about company name and id, description about this service
+        ///  and oldest date and fee for this service.
+        ///  </returns>
+        public IEnumerable<T> GetOldestBuildingServiceSubscriptions<T>(int buildingId)
         {
-            return this.repository.All()
-                .SelectMany(x => x.BuildingServiceSubscription.Where(y => y.BuildingId == buildingId))
-                .To<T>()
-                .ToList();
+            // TODO:Test oldest year and curent year with same month. Should return oldest.
+            var query = this.serviceRepository.All()
+                .Where(x => x.BuildingId == buildingId)
+                .OrderBy(x => x.CreatedOn);
+
+            var oldestDate = query.Select(x => x.CreatedOn).First();
+
+            return query.Where(x => x.CreatedOn <= oldestDate).To<T>().ToList();
         }
     }
 }

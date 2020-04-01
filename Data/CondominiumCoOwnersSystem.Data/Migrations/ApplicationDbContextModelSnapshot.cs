@@ -38,6 +38,9 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                     b.Property<int>("Floor")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("IdealParts")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("Inhabitants")
                         .HasColumnType("int");
 
@@ -51,7 +54,6 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -806,9 +808,7 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
 
                     b.HasOne("CondominiumCoOwnersSystem.Data.Models.ApplicationUser", "User")
                         .WithMany("Apartments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.ApartmentMontlyObligation", b =>

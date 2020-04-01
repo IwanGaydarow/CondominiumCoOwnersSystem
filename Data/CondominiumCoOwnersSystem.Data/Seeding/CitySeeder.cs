@@ -19,9 +19,9 @@
             var cities =
                 new List<City>
                 {
-                    new City { Name = "Sofia" },
-                    new City { Name = "Varna" },
-                    new City { Name = "Plovdiv" },
+                    new City { Name = "София" },
+                    new City { Name = "Варна" },
+                    new City { Name = "Пловдив" },
                 };
 
             foreach (var city in cities)

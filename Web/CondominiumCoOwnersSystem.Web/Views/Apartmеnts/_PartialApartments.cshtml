@@ -21,17 +21,16 @@ else
 
 
     <div class="form-group">
-        <label asp-for="Floor"></label>
-        <input asp-for="Floor" type="number" class="form-control" />
-        <span asp-validation-for="Floor" class="text-danger"></span>
-    </div>
-    <div class="form-group">
         <label asp-for="Inhabitants"></label>
         <input asp-for="Inhabitants" type="number" class="form-control" />
         <span asp-validation-for="Inhabitants" class="text-danger"></span>
     </div>
-    <button class="btn btn-success" type="submit">Добавете апартамент</button>
+    <span>
+        <button class="btn btn-success" type="submit">Добавете апартамент</button>
+    </span>
 }
+
+
 
 <environment names="Development">
     <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>

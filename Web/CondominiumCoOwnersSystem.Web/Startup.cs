@@ -63,6 +63,7 @@
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
+            // TODO: All interface name should be with `s and clases without!
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
@@ -70,6 +71,7 @@
             services.AddTransient<IApartmentService, ApartmentService>();
             services.AddTransient<ICitiesService, CitiesService>();
             services.AddTransient<IBuildingsService, BuildingService>();
+            services.AddTransient<IReportsService, ReportService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

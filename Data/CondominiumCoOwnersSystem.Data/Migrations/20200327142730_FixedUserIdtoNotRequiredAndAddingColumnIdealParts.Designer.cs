@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CondominiumCoOwnersSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200309170330_ChangeCompanyServiceSubscriptionRelation")]
-    partial class ChangeCompanyServiceSubscriptionRelation
+    [Migration("20200327142730_FixedUserIdtoNotRequiredAndAddingColumnIdealParts")]
+    partial class FixedUserIdtoNotRequiredAndAddingColumnIdealParts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,6 +40,12 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                     b.Property<int>("Floor")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("IdealParts")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Inhabitants")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -50,7 +56,6 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -61,7 +66,7 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Apartment");
+                    b.ToTable("Apartments");
                 });
 
             modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.ApartmentMontlyObligation", b =>
@@ -79,6 +84,9 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Inhabitants")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -225,16 +233,14 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("FullAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
 
                     b.Property<int>("FundRepairId")
                         .HasColumnType("int");
@@ -252,7 +258,14 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
 
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.HasIndex("IsDeleted");
 
@@ -301,6 +314,45 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                     b.ToTable("BuildingAdditionalRepairs");
                 });
 
+            modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.BuildingServiceSubscription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BuildingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Fee")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildingId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("BuildingServiceSubscriptions");
+                });
+
             modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.BuildingUtilityBills", b =>
                 {
                     b.Property<int>("Id")
@@ -338,6 +390,37 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                     b.HasIndex("UtilityId");
 
                     b.ToTable("BuildingUtilityBills");
+                });
+
+            modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.Company", b =>
@@ -386,17 +469,14 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.CompanyServiceSubscription", b =>
+            modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.CompanyMontlyServiceFee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BuildingId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CompanyId")
+                    b.Property<int>("BuildingServiceSubscriptionId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
@@ -414,20 +494,13 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("BuildingId");
-
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("BuildingServiceSubscriptionId");
 
                     b.HasIndex("IsDeleted");
 
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("CompanyServiceSubscriptions");
+                    b.ToTable("CompanyMontlyServiceFees");
                 });
 
             modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.CompanyType", b =>
@@ -459,6 +532,39 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("CompanyTypes");
+                });
+
+            modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.ContactFormEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactFormEntries");
                 });
 
             modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.FundRepair", b =>
@@ -500,49 +606,15 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                     b.ToTable("FundRepairs");
                 });
 
-            modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.MontlyServiceFee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CompanyServiceSubscriptionId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal?>("Fee")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Subscription")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyServiceSubscriptionId");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("MontlyServiceFees");
-                });
-
             modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.Service", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BuildingServiceSubscriptionId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -562,6 +634,8 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BuildingServiceSubscriptionId");
 
                     b.HasIndex("IsDeleted");
 
@@ -736,9 +810,7 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
 
                     b.HasOne("CondominiumCoOwnersSystem.Data.Models.ApplicationUser", "User")
                         .WithMany("Apartments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.ApartmentMontlyObligation", b =>
@@ -750,11 +822,35 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.Building", b =>
+                {
+                    b.HasOne("CondominiumCoOwnersSystem.Data.Models.City", "City")
+                        .WithMany("Buildings")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.BuildingAdditionalRepairs", b =>
                 {
                     b.HasOne("CondominiumCoOwnersSystem.Data.Models.Building", "Building")
                         .WithMany("BuildingAdditionalRepairs")
                         .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.BuildingServiceSubscription", b =>
+                {
+                    b.HasOne("CondominiumCoOwnersSystem.Data.Models.Building", "Building")
+                        .WithMany("BuildingServiceSubscriptions")
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CondominiumCoOwnersSystem.Data.Models.Company", "Company")
+                        .WithMany("BuildingServiceSubscription")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -783,23 +879,11 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.CompanyServiceSubscription", b =>
+            modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.CompanyMontlyServiceFee", b =>
                 {
-                    b.HasOne("CondominiumCoOwnersSystem.Data.Models.Building", "Building")
-                        .WithMany("CompanyServiceSubscriptions")
-                        .HasForeignKey("BuildingId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CondominiumCoOwnersSystem.Data.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CondominiumCoOwnersSystem.Data.Models.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId")
+                    b.HasOne("CondominiumCoOwnersSystem.Data.Models.BuildingServiceSubscription", "BuildingServiceSubscription")
+                        .WithMany("CompanyMontlyServiceFees")
+                        .HasForeignKey("BuildingServiceSubscriptionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -813,11 +897,11 @@ namespace CondominiumCoOwnersSystem.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.MontlyServiceFee", b =>
+            modelBuilder.Entity("CondominiumCoOwnersSystem.Data.Models.Service", b =>
                 {
-                    b.HasOne("CondominiumCoOwnersSystem.Data.Models.CompanyServiceSubscription", "CompanyServiceSubscription")
-                        .WithMany("MontlyServiceFees")
-                        .HasForeignKey("CompanyServiceSubscriptionId")
+                    b.HasOne("CondominiumCoOwnersSystem.Data.Models.BuildingServiceSubscription", "BuildingServiceSubscription")
+                        .WithMany("Services")
+                        .HasForeignKey("BuildingServiceSubscriptionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

@@ -35,7 +35,6 @@
                               new FundRepairSeeder(),
                               new BuildingUtilityBillsSeeder(),
                               new ApartmentSeeder(),
-                              new ApartmentMontlyObligationsSeeder(),
                               new BuildingAdditioanlRepairsSeeder(),
                               new BuildingServiceSubscriptionSeeder(),
                               new ServicesSeeder(),

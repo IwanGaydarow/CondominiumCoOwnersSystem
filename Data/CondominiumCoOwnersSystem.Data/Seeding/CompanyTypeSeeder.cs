@@ -19,8 +19,10 @@
             var companyTypes =
                 new List<CompanyType>()
                 {
-                    new CompanyType { TypeOfServices = "Elevator maintenance" },
-                    new CompanyType { TypeOfServices = "Cleaning company" },
+                    new CompanyType { TypeOfServices = "Асансъорна фирма" },
+                    new CompanyType { TypeOfServices = "Фирма за почистване" },
+                    new CompanyType { TypeOfServices = "Озеленителна фирма" },
+                    new CompanyType { TypeOfServices = "Поддръжка на гаражни врати" },
                 };
 
             foreach (var companyType in companyTypes)

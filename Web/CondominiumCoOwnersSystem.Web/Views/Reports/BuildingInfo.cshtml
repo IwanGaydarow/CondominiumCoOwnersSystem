@@ -1,0 +1,46 @@
+﻿@model CondominiumCoOwnersSystem.Web.ViewModels.Reports.InfoViewModel
+
+<div >
+    <dl>
+        <dt>Адрес на сградата:</dt>
+        <dd class="col-sm-9">@Model.Street</dd>
+
+        <dt class="col-sm-3">Вие сте наш клиент от:</dt>
+        <dd class="col-sm-9">@Model.CreatedOn.ToString("dd.MM.yyyy")</dd>
+
+        <dt class="col-sm-3">Доставчиците Ви на комунални услуги са:</dt>
+        <dd class="col-sm-9">
+            @foreach (var utility in Model.BuildingUtilityBills)
+            {
+                <p>@utility.UtilityName</p>
+            }
+        </dd>
+
+        <dt class="col-sm-3">Броят на апартаментите в сградата са:</dt>
+        <dd class="col-sm-9">@Model.ApartmentsCount</dd>
+
+        <dt class="col-sm-3 text-truncate">Вашите такси се разпределят:</dt>
+        <dd class="col-sm-9">@Model.PaymentMethodAsString</dd>
+
+        <dt class="col-sm-4 text-truncate">Сумата за Фонд ремонт и обновление е:</dt>
+        <dd class="col-sm-8">@Model.FundRepairFee Лв</dd>
+
+        <dt class="col-sm-3 text-truncate">Фонд ремонт се разпределя:</dt>
+        <dd class="col-sm-9">@Model.FundRepairTypeOfDestribution</dd>
+
+        <dt class="col-sm-3">Абонаментни услуги:</dt>
+        @foreach (var service in Model.BuildingServiceSubscriptions)
+        {
+            <dd class="col-sm-10">
+                <dl class="row">
+                    <dt class="col-sm-4">@service.CompanyName</dt>
+                    <dd class="col-sm-8">Сключен договор на @service.CreatedOn.ToString("dd.MM.yyyy")</dd>
+                    <dd class="col-sm-8">Месечна такса: @service.Fee</dd>
+                    <dd class="col-sm-8">Дейност @service.ServiceDescription</dd>
+                    <dd class="col-sm-8">Информация за фирмата: 
+                    <a asp-action="CompanyInfo" asp-route-companyId="@service.CompanyId">@service.CompanyName</a></dd>
+                </dl>
+            </dd>
+        }
+    </dl>
+</div>

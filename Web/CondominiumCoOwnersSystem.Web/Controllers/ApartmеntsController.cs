@@ -71,7 +71,7 @@
                 return this.View(apartmentToEdit);
             }
 
-            await this.apartmentService.EditApartment(apartmentToEdit.Id, apartmentToEdit.Floor, apartmentToEdit.Inhabitants);
+            await this.apartmentService.EditApartment(apartmentToEdit.Id, apartmentToEdit.Inhabitants);
 
             return this.RedirectToAction("Index");
         }
@@ -84,7 +84,7 @@
             return this.View(viewModel);
         }
 
-        // TODO: Change model for AJAX request of buildings and apartments.
+        // TODO: Change model for AJAX request to buildings and apartments models.
         public IActionResult BuildingToAddApartment(int cityId)
         {
             var buildings = this.buildingService
@@ -128,7 +128,6 @@
             var userId = this.userManager.GetUserId(this.User);
             await this.apartmentService.AddApartmentToUserAsync(
                 input.ApartmentId,
-                input.Floor,
                 input.Inhabitants,
                 userId);
 

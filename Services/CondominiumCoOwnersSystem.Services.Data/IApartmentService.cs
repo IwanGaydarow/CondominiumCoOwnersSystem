@@ -5,6 +5,8 @@
 
     public interface IApartmentService
     {
+        int CountOfApartmentsInBuilding(int buildingId);
+
         IEnumerable<T> GetAllApartmentsOfUser<T>(string userId);
 
         IEnumerable<T> GetAllFreeApartments<T>(int buildingId);
@@ -13,10 +15,10 @@
 
         T GetApartmentDetails<T>(int apartmentId);
 
-        Task EditApartment(int apartmentId, int floor, int inhabitants);
+        Task EditApartment(int apartmentId, int inhabitants);
 
         Task RemoveApartmentFromUser(int apartmentId);
 
-        Task AddApartmentToUserAsync(int apartmentId, int floor, int inhabitant, string userId);
+        Task AddApartmentToUserAsync(int apartmentId, int inhabitant, string userId);
     }
 }

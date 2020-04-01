@@ -18,7 +18,7 @@
             this.apartmentRepository = apartmentRepository;
         }
 
-        public async Task AddApartmentToUserAsync(int apartmentId, int floor, int inhabitant, string userId)
+        public async Task AddApartmentToUserAsync(int apartmentId, int inhabitant, string userId)
         {
             var apartment = await this.apartmentRepository.GetByIdWithDeletedAsync(apartmentId);
 
@@ -27,25 +27,19 @@
                 throw new NullReferenceException();
             }
 
-            if (apartment.UserId == userId
-                && apartment.Floor == floor
-                && apartment.Inhabitants == inhabitant)
-            {
-                this.apartmentRepository.Undelete(apartment);
-            }
-            else
-            {
-                apartment.UserId = userId;
-                apartment.Floor = floor;
-                apartment.Inhabitants = inhabitant;
-                apartment.IsDeleted = false;
-                apartment.ModifiedOn = null;
-            }
+            apartment.Inhabitants = inhabitant;
+            apartment.UserId = userId;
 
             await this.apartmentRepository.SaveChangesAsync();
         }
 
-        public async Task EditApartment(int apartmentId, int floor, int inhabitants)
+        public int CountOfApartmentsInBuilding(int buildingId)
+        {
+            return this.apartmentRepository.AllWithDeleted()
+                .Where(x => x.BuildingId == buildingId).Count();
+        }
+
+        public async Task EditApartment(int apartmentId, int inhabitants)
         {
             var apartmentToEdit = this.apartmentRepository.All()
                 .Where(x => x.Id == apartmentId)
@@ -56,7 +50,6 @@
                 throw new NullReferenceException();
             }
 
-            apartmentToEdit.Floor = floor;
             apartmentToEdit.Inhabitants = inhabitants;
 
             this.apartmentRepository.Update(apartmentToEdit);
@@ -65,15 +58,23 @@
 
         public IEnumerable<T> GetAllApartmentsOfUser<T>(string userId)
         {
-            return this.apartmentRepository.All()
-                .Where(x => x.User.Id == userId && x.IsDeleted == false)
-                .To<T>().ToList();
+            var apartments = this.apartmentRepository.All()
+                .Where(x => x.User.Id == userId)
+                .AsQueryable();
+
+            if (apartments == null)
+            {
+                return null;
+            }
+
+            return apartments.To<T>().ToList();
         }
 
         public IEnumerable<T> GetAllFreeApartments<T>(int buildingId)
         {
             return this.apartmentRepository.AllWithDeleted()
-                .Where(x => x.BuildingId == buildingId && x.IsDeleted == true)
+                .Where(x => x.BuildingId == buildingId && x.UserId == null)
+                .OrderBy(x => x.Number)
                 .To<T>().ToList();
         }
 
@@ -86,7 +87,7 @@
 
         public T GetApartmentDetails<T>(int apartmentId)
         {
-            return this.apartmentRepository.AllWithDeleted()
+            return this.apartmentRepository.All()
                 .Where(x => x.Id == apartmentId)
                 .To<T>().FirstOrDefault();
         }
@@ -95,8 +96,9 @@
         {
             var apartmentForDelete = await this.apartmentRepository
                 .GetByIdWithDeletedAsync(apartmentId);
+            apartmentForDelete.UserId = null;
 
-            this.apartmentRepository.Delete(apartmentForDelete);
+            this.apartmentRepository.Update(apartmentForDelete);
             await this.apartmentRepository.SaveChangesAsync();
         }
     }

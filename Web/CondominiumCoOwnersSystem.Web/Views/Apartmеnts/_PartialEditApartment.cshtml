@@ -4,19 +4,16 @@
     <div class="card-body">
         <div class="form-group d-inline-block">
             <div>
-                <label asp-for="Floor"></label>
-                <input asp-for="Floor" type="number" class="form-control" />
-                <span asp-validation-for="Floor" class="text-danger"></span>
-            </div>
-            <div>
                 <label asp-for="Inhabitants"></label>
                 <input asp-for="Inhabitants" type="number" class="form-control" />
                 <span asp-validation-for="Inhabitants" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" value="@Model.Id" />
-            <div>
+        </div>
+        <div>
+            <span>
                 <button type="submit" asp-action="EditApartment" class="btn btn-outline-success btn-sm"> Промени </button>
-            </div>
+            </span>
         </div>
     </div>
 </form>
