@@ -10,10 +10,19 @@
     public class ReportService : IReportsService
     {
         private readonly IDeletableEntityRepository<BuildingServiceSubscription> serviceRepository;
+        private readonly IDeletableEntityRepository<Company> companyRepositor;
 
-        public ReportService(IDeletableEntityRepository<BuildingServiceSubscription> serviceRepository)
+        public ReportService(
+            IDeletableEntityRepository<BuildingServiceSubscription> serviceRepository,
+            IDeletableEntityRepository<Company> companyRepositor)
         {
             this.serviceRepository = serviceRepository;
+            this.companyRepositor = companyRepositor;
+        }
+
+        public T GetCompanyInfoById<T>(int companyId)
+        {
+            return this.companyRepositor.All().Where(x => x.Id == companyId).To<T>().FirstOrDefault();
         }
 
         /// <summary>
@@ -27,6 +36,7 @@
         public IEnumerable<T> GetOldestBuildingServiceSubscriptions<T>(int buildingId)
         {
             // TODO:Test oldest year and curent year with same month. Should return oldest.
+            // Exampl: 13.01.2019 and 13.01.2020 should return 13.01.2019
             var query = this.serviceRepository.All()
                 .Where(x => x.BuildingId == buildingId)
                 .OrderBy(x => x.CreatedOn);

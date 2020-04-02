@@ -73,7 +73,8 @@
 
         public IActionResult CompanyInfo(int companyId)
         {
-            return this.View();
+            var companyInfo = this.reportsService.GetCompanyInfoById<CompanyInfoViewModel>(companyId);
+            return this.PartialView("_CompanyInfoPartial", companyInfo);
         }
     }
 }
