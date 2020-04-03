@@ -1,74 +1,55 @@
 ﻿@model CondominiumCoOwnersSystem.Web.ViewModels.Reports.InfoViewModel
+@{
+    var companiesIds = new List<int>();
+    foreach (var company in Model.BuildingServiceSubscriptions)
+    {
+        companiesIds.Add(company.CompanyId);
+    }
+}
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-6 bg-warning">
-            <dl>
-                <dt>Адрес на сградата:</dt>
-                <dd class="col-sm-9">@Model.Street</dd>
-
-                <dt class="col-sm-3">Вие сте наш клиент от:</dt>
-                <dd class="col-sm-9">@Model.CreatedOn.ToString("dd.MM.yyyy")</dd>
-
-                <dt class="col-sm-3">Доставчиците Ви на комунални услуги са:</dt>
-                <dd class="col-sm-9">
-                    @foreach (var utility in Model.BuildingUtilityBills)
-                    {
-                        <p>@utility.UtilityName</p>
-                    }
-                </dd>
-
-                <dt class="col-sm-3">Броят на апартаментите в сградата са:</dt>
-                <dd class="col-sm-9">@Model.ApartmentsCount</dd>
-
-                <dt class="col-sm-3 text-truncate">Вашите такси се разпределят:</dt>
-                <dd class="col-sm-9">@Model.PaymentMethodAsString</dd>
-
-                <dt class="col-sm-4 text-truncate">Сумата за Фонд ремонт и обновление е:</dt>
-                <dd class="col-sm-8">@Model.FundRepairFee Лв</dd>
-
-                <dt class="col-sm-3 text-truncate">Фонд ремонт се разпределя:</dt>
-                <dd class="col-sm-9">@Model.FundRepairTypeOfDestribution</dd>
-
-                <dt class="col-sm-3">Абонаментни услуги:</dt>
-                @foreach (var service in Model.BuildingServiceSubscriptions)
-                {
-                    <dd class="col-sm-10">
-                        <dl class="row">
-                            <dt class="col-sm-4">@service.CompanyName</dt>
-                            <dd class="col-sm-8">Сключен договор на @service.CreatedOn.ToString("dd.MM.yyyy")</dd>
-                            <dd class="col-sm-8">Месечна такса: @service.Fee</dd>
-                            <dd class="col-sm-8">Дейност @service.ServiceDescription</dd>
-                            <dd class="col-sm-8">
-                                Информация за фирмата:
-                                <button onclick="LoadPartial(@service.CompanyId)">@service.CompanyName</button>
-                            </dd>
-                        </dl>
-                    </dd>
-                }
-            </dl>
+<div>
+    <div class="card">
+        <div class="card-header">
+            <h2>Адрес на сградата: @Model.Street</h2>
         </div>
-        <div class="col-sm-6">
-            <div id="companyInfo"></div>
+        <div class="card-body">
+            <h5 class="card-title">Вие сте наши клиенти от: <time datetime="@Model.CreatedOn.ToString("O")"></time></h5>
+            <p class="card-text">Брой апартаменти в сградата е @Model.ApartmentsCount, а разпределението на таксите е @Model.PaymentMethodAsString.ToLower().</p>
+            <p class="card-text">Сумата която събирате за Фонд ремонт и обновление е: @Model.FundRepairFee, като се разпределя @Model.FundRepairTypeOfDestribution.ToLower()</p>
+            <p class="card-text">Имате сметки за комунални услуги получавате от: @String.Join(", ", Model.BuildingUtilityBills.Select(x => x.UtilityName).ToArray())</p>
+            @foreach (var buildingService in Model.BuildingServiceSubscriptions)
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <h3>@buildingService.CompanyName</h3>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Фирмата Ви обслужва от: <time datetime="@buildingService.CreatedOn.ToString("O")"></time></h5>
+                        <p>Месечната такса на фирмата @buildingService.Fee лв</p>
+                        <hr />
+                        <p>За информация относно фирмата и услугата която извършва натиснете бутона.</p>
+                        <div>
+                            <button type="button" class="btn-info infoButon" id="btnShow">Информация</button>
+                        </div>
+                    </div>
+                    <div id="Info" style="display: none">
+                        <vc:company-info company-id="@buildingService.CompanyId"></vc:company-info>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
 
 @section Scripts {
     <script>
-        function LoadPartial(companyId) {
-            $.ajax({
-                url: "/Reports/CompanyInfo",
-                type: "GET",
-                data: {
-                    companyId: companyId
-                },
-                contentType: 'application/html; charset=utf-8',
-                dataType: "html",
-                success: function (data) {
-                    $('#companyInfo').html(data);
-                }
-            });
+        let buttons = document.getElementsByClassName("infoButon");
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener("click");
+        };
+        event.on('click', showInfo);
+        function showInfo() {
+            $("#Info").slideToggle();
         }
     </script>
 }

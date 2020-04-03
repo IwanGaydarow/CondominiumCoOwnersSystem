@@ -22,3 +22,18 @@ function topFunction() {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
+
+// Local time function for moment.js
+$(function () {
+    moment.locale("bg");
+    $("time").each(function (i, e) {
+        const dateTimeValue = $(e).attr("datetime");
+        if (!dateTimeValue) {
+            return;
+        }
+
+        const time = moment.utc(dateTimeValue).local();
+        $(e).html(time.format("ll"));
+        $(e).attr("title", $(e).attr("datetime"));
+    });
+});

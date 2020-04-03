@@ -1,8 +1,8 @@
-﻿using CondominiumCoOwnersSystem.Data.Models;
-using CondominiumCoOwnersSystem.Services.Mapping;
-
-namespace CondominiumCoOwnersSystem.Web.ViewModels.Reports
+﻿namespace CondominiumCoOwnersSystem.Web.ViewModels.CompanyInfo
 {
+    using CondominiumCoOwnersSystem.Data.Models;
+    using CondominiumCoOwnersSystem.Services.Mapping;
+
     public class CompanyInfoViewModel : IMapFrom<Company>
     {
         public string Name { get; set; }

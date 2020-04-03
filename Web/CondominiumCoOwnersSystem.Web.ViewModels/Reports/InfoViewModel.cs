@@ -14,6 +14,9 @@
 
         public DateTime CreatedOn { get; set; }
 
+        public int TimeTillNow =>
+           (int)Math.Ceiling((DateTime.UtcNow - this.CreatedOn).Days * 0.0328549112);
+
         public string Street { get; set; }
 
         public PaymentMethod PaymentMethod { get; set; }
