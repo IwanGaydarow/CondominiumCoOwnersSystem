@@ -81,21 +81,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="col-sm-4 d-inline-block">
-            <div class="container">
-                &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </div>
-        <div class="col-sm-4 d-inline-block">
-            <br />Полезни линкове
-            <ul>
-                <li>
-                    <a asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </li>
-            </ul>
-        </div>
-    </footer>
+    <partial name="_FooterPartial" />
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>

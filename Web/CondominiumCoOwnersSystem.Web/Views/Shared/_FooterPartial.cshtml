@@ -1,0 +1,71 @@
+﻿@using CondominiumCoOwnersSystem.Common
+
+<div class="footer mt-4">
+    <div class="footer1 mt-4">
+        <div class="container-fluid">
+
+            <div class="container ">
+                <div class="container-fluid row">
+                    <div class="col-sm-4">
+                        <h2>About Us</h2><p>
+                            <div class="myframegmap">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d448183.73912804417!2d76.81306640115254!3d28.646677246352574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x37205b715389640!2sDelhi!5e0!3m2!1sen!2sin!4v1513154329228" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                            </div>
+                        </p><br>
+                    </div>
+                    <div class="col-sm-4">
+                        <h2>Home</h2>
+                        <p>
+                            <i class="fas fa-home"></i>    <a asp-controller="Home" asp-action="Index"> Home</a><br>
+                            <i class="fas fa-user"></i>    <a href="#"> About Us</a><br>
+                            <i class="fas fa-map-marker-alt"></i>    <a asp-controller="Contacts" asp-action="Index"> Contact Us</a><br>
+                            <i class="fa fa-briefcase"></i>    <a href="#"> Services</a><br>
+                            <i class="fa fa-question-circle"></i>    <a asp-controller="Home" asp-action="Privacy"> Term & Conditions</a><br><br>
+
+
+                        </p>
+
+
+                    </div>
+                    <div class="col-sm-4 ">
+                        <h2>Contact Us</h2>
+                        <p>
+
+                            <i class="fa fa-phone"></i>    <a href="tel:0885872273"> @GlobalConstants.SystemPhone</a><br>
+                            <i class="fa fa-envelope"></i>    <a href="mailto:@GlobalConstants.SystemEmail"> @GlobalConstants.SystemEmail</a><br>
+                            <i class="fas fa-map-marker-alt"></i>     @GlobalConstants.CompanyAddress
+                        </p>
+
+                        <br>
+                    </div>
+                </div>
+                <div class="clear30"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer2">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-lg-10 text-center mx-auto my-5">
+
+                        <!-- Facebook -->
+                        <a href="#" type="button" class="btn-floating btn-fb ml-lg-4 mr-lg-4"><i class="fab fa-facebook-f fa-3x"></i></a>
+
+                        <!-- Twitter -->
+                        <a href="#" type="button" class="btn-floating btn-tw ml-lg-4 mr-lg-4"><i class="fab fa-twitter fa-3x"></i></a>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="clear30"></div>
+                    <div class="col-sm-12 text-center"><p><strong>Copyright @GlobalConstants.SystemName © 2020 All right reserved.</strong></p></div>
+                    <div class="clear30"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

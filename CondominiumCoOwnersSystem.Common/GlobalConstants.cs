@@ -8,6 +8,10 @@
 
         public const string SystemEmail = "iwan.gaidarow@gmail.com";
 
+        public const string SystemPhone = "+359885872273";
+
+        public const string CompanyAddress = "ул.Поп Харитон 87, Варна";
+
         public const int CityNameLenght = 100;
 
         public const int BuildingNameLenght = 20;

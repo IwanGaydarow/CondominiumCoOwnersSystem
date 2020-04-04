@@ -1,7 +1,7 @@
 ﻿@model CondominiumCoOwnersSystem.Web.ViewModels.CompanyInfo.CompanyInfoViewModel
 
 
-<section id="contact" class="card text-center">
+<section class="card text-center">
     <div class="card-header">
         <h3>@Model.CompanyTypeTypeOfServices</h3>
     </div>
@@ -13,12 +13,3 @@
         </div>
     </div>
 </section>
-
-@section Scripts {
-    <script>
-        let test = document.querySelector('.fas .fa-map-marker-alt .fa-4x mb-3');
-        test.addEventListener("mouseover", function () {
-            event.target.style.color = "orange"
-        });
-    </script>
-}

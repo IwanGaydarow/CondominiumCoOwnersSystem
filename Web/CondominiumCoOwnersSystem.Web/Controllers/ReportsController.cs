@@ -70,11 +70,5 @@
         {
             return this.View();
         }
-
-        //public IActionResult CompanyInfo(int companyId)
-        //{
-        //    var companyInfo = this.reportsService.GetCompanyInfoById<CompanyInfoViewModel>(companyId);
-        //    return this.PartialView("_CompanyInfoPartial", companyInfo);
-        //}
     }
 }
