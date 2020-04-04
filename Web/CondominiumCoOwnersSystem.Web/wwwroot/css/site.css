@@ -146,8 +146,3 @@ section.pricing {
     #scrollToTop:hover {
         background-color: #DCDCDC; /* Add a dark-grey background on hover */
     }
-
-/*Company Contact info page -------------------------*/
-#contact .card:hover i, #contact .card:hover h4 {
-    color: #87d37c;
-}

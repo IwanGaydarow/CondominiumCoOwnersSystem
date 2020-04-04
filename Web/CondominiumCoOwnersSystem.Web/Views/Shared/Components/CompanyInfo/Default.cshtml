@@ -1,15 +1,24 @@
 ﻿@model CondominiumCoOwnersSystem.Web.ViewModels.CompanyInfo.CompanyInfoViewModel
 
-<div id="contact" class="card text-center">
+
+<section id="contact" class="card text-center">
     <div class="card-header">
         <h3>@Model.CompanyTypeTypeOfServices</h3>
     </div>
     <div class="card-body">
-        <div class="card-body">
-            <div class="col-md-3 d-inline-block"><i class="fa fa-map-marker fa-5x mb-3"></i> Адрес: @Model.Address</div>
-            <div class="col-md-3 d-inline-block"><i class="fa fa-phone fa-5x mb-3"></i>Телефон: @Model.PhoneNumber</div>
-            <div class="col-md-3 d-inline-block"><i class="fa fa-globe fa-5x mb-3"></i>Емейл: @Model.Email</div>
+        <div class="card-body" id="test">
+            <div class="col-md-3 d-inline-block"><i class="fas fa-map-marker-alt fa-4x mb-3"></i> Адрес: @Model.Address</div>
+            <div class="col-md-3 d-inline-block"><i class="fas fa-phone fa-4x mb-3"></i> Телефон: @Model.PhoneNumber</div>
+            <div class="col-md-3 d-inline-block"><i class="fas fa-globe fa-4x mb-3"></i> Емейл: @Model.Email</div>
         </div>
     </div>
-</div>
+</section>
 
+@section Scripts {
+    <script>
+        let test = document.querySelector('.fas .fa-map-marker-alt .fa-4x mb-3');
+        test.addEventListener("mouseover", function () {
+            event.target.style.color = "orange"
+        });
+    </script>
+}
