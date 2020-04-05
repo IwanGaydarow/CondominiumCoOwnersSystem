@@ -39,20 +39,14 @@
             return this.View(buildings);
         }
 
-        // TODO: Refoctoring of this Action.
         public IActionResult BuildingInfo(int buildingId)
         {
             var buildingInfo = this.buildingService.GetBuildingById<InfoViewModel>(buildingId);
+
             buildingInfo.ApartmentsCount = this.apartmentService.CountOfApartmentsInBuilding(buildingId);
             buildingInfo.BuildingServiceSubscriptions =
                 this.reportsService.GetOldestBuildingServiceSubscriptions<BuildingServiceSubscriptionViewModel>(buildingId);
-            buildingInfo.PaymentMethodAsString = buildingInfo.PaymentMethod switch
-            {
-                PaymentMethod.CountOfApartment => "Според броя на апартаменти",
-                PaymentMethod.CountOfPeople => "Според брой хора живеещи в апартамента",
-                PaymentMethod.IdealParts => "Според идеалните части на апартамента",
-                _ => "Не е решено",
-            };
+            buildingInfo.PaymentMethodAsString = this.reportsService.ConvertPaymentMethodToString(buildingInfo.PaymentMethod);
 
             var uniqueUtility = buildingInfo.BuildingUtilityBills
                             .Select(x => x.UtilityName).Distinct<string>().ToList();

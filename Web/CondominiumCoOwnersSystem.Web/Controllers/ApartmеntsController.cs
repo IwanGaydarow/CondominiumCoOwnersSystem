@@ -107,22 +107,12 @@
             return this.PartialView("_PartialApartments", view);
         }
 
-        // TODO: After changing model for apartments and buildings, change ModelState not valid return.
         [HttpPost]
         public async Task<IActionResult> AddApartmentToUser(AddApartmentToUserInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
-                var cities = this.citiesService.AllCities<AllCityViewModel>();
-                var buildings = this.buildingService
-                .GetAllBuildingsByCity<BuildingDropDownViewModel>(input.CityId);
-                var apartments = this.apartmentService.GetAllFreeApartments<ApartmentDropDownViewModel>(input.BuildingId);
-
-                input.Cities = cities;
-                input.Buildings = buildings;
-                input.Apartments = apartments;
-
-                return this.View("AddApartmentToUser", input);
+                return this.RedirectToAction("AddApartmentToUser");
             }
 
             var userId = this.userManager.GetUserId(this.User);

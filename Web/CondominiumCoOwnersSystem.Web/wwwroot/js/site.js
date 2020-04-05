@@ -3,6 +3,9 @@
 
 // Write your JavaScript code.
 
+
+// Scrolldown button---------------------------------
+
 //Get the button:
 mybutton = document.getElementById("scrollToTop");
 
@@ -23,7 +26,10 @@ function topFunction() {
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
-// Local time function for moment.js
+
+
+
+// Local time function for moment.js -----------------------------
 $(function () {
     moment.locale("bg");
     $("time").each(function (i, e) {
@@ -37,3 +43,4 @@ $(function () {
         $(e).attr("title", $(e).attr("datetime"));
     });
 });
+

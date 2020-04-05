@@ -16,7 +16,9 @@
             this.buildingRepository = buildingRepository;
         }
 
-        // Filtrate all building where user own apartment.
+        /// <summary>
+        /// Filtrate all building where user own apartment.
+        /// </summary>
         public IEnumerable<T> GetAllBuildingByUserId<T>(string userId)
         {
             return this.buildingRepository.All().Where(x =>

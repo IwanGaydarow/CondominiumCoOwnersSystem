@@ -5,6 +5,7 @@
 
     using CondominiumCoOwnersSystem.Data.Common.Repositories;
     using CondominiumCoOwnersSystem.Data.Models;
+    using CondominiumCoOwnersSystem.Data.Models.Enums;
     using CondominiumCoOwnersSystem.Services.Mapping;
 
     public class ReportService : IReportsService
@@ -20,6 +21,17 @@
             this.companyRepositor = companyRepositor;
         }
 
+        public string ConvertPaymentMethodToString(PaymentMethod paymentMethod)
+        {
+            return paymentMethod switch
+            {
+                PaymentMethod.CountOfApartment => "Според броя на апартаменти",
+                PaymentMethod.CountOfPeople => "Според брой хора живеещи в апартамента",
+                PaymentMethod.IdealParts => "Според идеалните части на апартамента",
+                _ => "Не е решено",
+            };
+        }
+
         public T GetCompanyInfoById<T>(int companyId)
         {
             return this.companyRepositor.All().Where(x => x.Id == companyId).To<T>().FirstOrDefault();
@@ -29,10 +41,6 @@
         /// Taking all oldest records for BuildingServiceSubscription table. Using this to inform user about
         /// all companies service in a building and from how long they servd.
         /// </summary>
-        /// <returns>
-        /// BuildingServiceSubscriptionViewModel with info about company name and id, description about this service
-        ///  and oldest date and fee for this service.
-        ///  </returns>
         public IEnumerable<T> GetOldestBuildingServiceSubscriptions<T>(int buildingId)
         {
             // TODO:Test oldest year and curent year with same month. Should return oldest.
