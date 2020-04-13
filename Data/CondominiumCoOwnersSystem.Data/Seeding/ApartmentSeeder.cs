@@ -188,6 +188,8 @@
                     new Apartment { BuildingId = 9, Floor = 3, Number = 6, IdealParts = 20.4698M, Inhabitants = 2, },
                 };
 
+            apartments = apartments.Reverse<Apartment>().ToList();
+
             foreach (var apartment in apartments)
             {
                 await dbContext.AddAsync(apartment);

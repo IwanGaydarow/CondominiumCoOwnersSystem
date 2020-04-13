@@ -9,23 +9,25 @@
     <div class="alert">
         Вие не сте добавили апартамент. Моля изберете от менюто Апартамент и добавате вашият апартамент.
         Веднага след това ще може да получите пълна информация за вашата сграда. Ако има проблем моля свържете се с нас
-        <a href="#" asp-controller="Contacs" asp-action="Index">Контакт</a>.
+        <a asp-controller="Contacts" asp-action="Index">Контакт</a>.
     </div>
 }
 else
 {
     <div class="alert alert-secondary" role="alert">
-        Моля изберете за коя сграда искате да видите информация.
+        Моля изберете за коя сграда искате да видите информация или отчет.
     </div>
 
     @foreach (var building in Model)
     {
-        <div class="card" style="width: 18rem;">
+        <div class="card border border-success rounded-lg" style="width: 25rem;">
             <div class="card-body">
-                <h5 class="card-title">@building.Street</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@building.CityName</h6>
-                <p class="card-text">Тук може да видите информация за обслужващите фирми, начин на разпределение на месечните такси, такса за фонд ремонт и обновление.</p>
-                <a class="card-link" asp-action="BuildingInfo" asp-route-buildingId="@building.Id">Избери</a>
+                <h5 class="card-title text-center">@building.Street</h5>
+                <h6 class="card-subtitle mb-2 text-muted text-center">Гр.@building.CityName</h6>
+                <p class="card-text">Тук може да видите информация за обслужващите фирми, начин на разпределение на месечните такси, такса за фонд ремонт и обновление.
+                Също така с натискане на бутона Отчети, Вие може да видите отчетите за различните месеци и години.</p>
+                <a class="btn btn-warning rounded-sm" asp-controller="Reports" asp-action="BuildingInfo" asp-route-buildingId="@building.Id">Информация</a>
+                <a class="btn btn-success rounded-sm float-lg-right" asp-controller="Reports" asp-action="Report" asp-route-buildingId="@building.Id">Отчети</a>
             </div>
         </div>
     }

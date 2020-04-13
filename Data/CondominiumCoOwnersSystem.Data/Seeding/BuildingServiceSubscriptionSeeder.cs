@@ -74,6 +74,7 @@
                     new BuildingServiceSubscription { BuildingId = 9, CompanyId = 5, Fee = 35M, CreatedOn = new DateTime(2020, 3, 13) },
                 };
 
+            buildingSubscriptions = buildingSubscriptions.Reverse<BuildingServiceSubscription>().ToList();
             foreach (var buildingSubscription in buildingSubscriptions)
             {
                 await dbContext.BuildingServiceSubscriptions.AddAsync(buildingSubscription);

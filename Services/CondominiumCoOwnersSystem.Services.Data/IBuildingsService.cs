@@ -6,7 +6,6 @@
     {
         IEnumerable<T> GetAllBuildingsByCity<T>(int cityId);
 
-        
         IEnumerable<T> GetAllBuildingByUserId<T>(string userId);
 
         T GetBuildingById<T>(int buildingId);

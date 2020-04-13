@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using CondominiumCoOwnersSystem.Data.Models;
+    using CondominiumCoOwnersSystem.Data.Models.Enums;
 
     public class FundRepairSeeder : ISeeder
     {
@@ -19,17 +20,18 @@
             var fundRepairs =
                 new List<FundRepair>()
                 {
-                    new FundRepair { Fee = 60M, BuildingId = 1, TypeOfDestribution = "На брой апартаменти" },
-                    new FundRepair { Fee = 50M, BuildingId = 2, TypeOfDestribution = "Според идеалните части" },
-                    new FundRepair { Fee = 40M, BuildingId = 3, TypeOfDestribution = "Според брой живущи" },
-                    new FundRepair { Fee = 50M, BuildingId = 4, TypeOfDestribution = "На брой апартаменти" },
-                    new FundRepair { Fee = 30M, BuildingId = 5, TypeOfDestribution = "На брой апартаменти" },
-                    new FundRepair { Fee = 45M, BuildingId = 6, TypeOfDestribution = "Според брой живущи" },
-                    new FundRepair { Fee = 35M, BuildingId = 7, TypeOfDestribution = "Според идеалните части" },
-                    new FundRepair { Fee = 65M, BuildingId = 8, TypeOfDestribution = "На брой апартаменти" },
-                    new FundRepair { Fee = 50M, BuildingId = 9, TypeOfDestribution = "Според брой живущи" },
+                    new FundRepair { Fee = 60M, BuildingId = 1, TypeOfDestribution = PaymentMethod.CountOfApartment },
+                    new FundRepair { Fee = 50M, BuildingId = 2, TypeOfDestribution = PaymentMethod.IdealParts },
+                    new FundRepair { Fee = 40M, BuildingId = 3, TypeOfDestribution = PaymentMethod.CountOfPeople },
+                    new FundRepair { Fee = 50M, BuildingId = 4, TypeOfDestribution = PaymentMethod.CountOfApartment },
+                    new FundRepair { Fee = 30M, BuildingId = 5, TypeOfDestribution = PaymentMethod.CountOfApartment },
+                    new FundRepair { Fee = 45M, BuildingId = 6, TypeOfDestribution = PaymentMethod.CountOfPeople },
+                    new FundRepair { Fee = 35M, BuildingId = 7, TypeOfDestribution = PaymentMethod.IdealParts },
+                    new FundRepair { Fee = 65M, BuildingId = 8, TypeOfDestribution = PaymentMethod.CountOfApartment },
+                    new FundRepair { Fee = 50M, BuildingId = 9, TypeOfDestribution = PaymentMethod.CountOfPeople },
                 };
 
+            fundRepairs = fundRepairs.Reverse<FundRepair>().ToList();
             foreach (var fundRepair in fundRepairs)
             {
                 await dbContext.FundRepairs.AddAsync(fundRepair);

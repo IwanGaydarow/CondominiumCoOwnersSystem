@@ -5,12 +5,14 @@
     using CondominiumCoOwnersSystem.Data.Models;
     using CondominiumCoOwnersSystem.Services.Mapping;
 
-    public class BuildingUtilityBillsViewModel : IMapFrom<BuildingUtilityBills>
+    public class BuildingAdditionalRepairsViewModel : IMapFrom<BuildingAdditionalRepairs>
     {
-        public string UtilityName { get; set; }
+        public string MadeBy { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public string Description { get; set; }
 
         public decimal Cost { get; set; }
+
+        public DateTime CreatedOn { get; set; }
     }
 }

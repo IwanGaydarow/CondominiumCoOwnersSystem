@@ -28,7 +28,7 @@
                     </a>
                 </div>
             </div>
-            <div class="container-fluid" id="editIfnoField"></div>
+            <div class="container-fluid" id="editInfoField"></div>
             <hr />
         }
     }
@@ -45,7 +45,7 @@
         function LoadInfoForm(data) {
             $.get("/Apartmеnts/EditApartment?apartmentId=" + data,
                 function (data) {
-                    $('#editIfnoField').html(data);
+                    $('#editInfoField').html(data);
             });
         }
     </script>

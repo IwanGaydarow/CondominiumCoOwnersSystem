@@ -26,7 +26,10 @@
 
         public decimal FundRepairFee { get; set; }
 
-        public string FundRepairTypeOfDestribution { get; set; }
+        public PaymentMethod FundRepairTypeOfDestribution { get; set; }
+
+        [IgnoreMap]
+        public string FundReoairTypeOfDestributionAsString { get; set; }
 
         [IgnoreMap]
         public int ApartmentsCount { get; set; }

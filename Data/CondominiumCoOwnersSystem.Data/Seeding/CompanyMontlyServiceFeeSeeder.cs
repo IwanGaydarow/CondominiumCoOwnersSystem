@@ -74,6 +74,7 @@
                     new CompanyMontlyServiceFee { BuildingServiceSubscriptionId = 9, Fee = 35M, CreatedOn = new DateTime(2020, 3, 12) },
                 };
 
+            montlyFees = montlyFees.Reverse<CompanyMontlyServiceFee>().ToList();
             foreach (var montlyFee in montlyFees)
             {
                 await dbContext.CompanyMontlyServiceFees.AddAsync(montlyFee);

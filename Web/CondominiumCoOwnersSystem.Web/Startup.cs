@@ -8,6 +8,7 @@
     using CondominiumCoOwnersSystem.Data.Models;
     using CondominiumCoOwnersSystem.Data.Repositories;
     using CondominiumCoOwnersSystem.Data.Seeding;
+    using CondominiumCoOwnersSystem.Services;
     using CondominiumCoOwnersSystem.Services.Data;
     using CondominiumCoOwnersSystem.Services.Data.ContactServices;
     using CondominiumCoOwnersSystem.Services.Mapping;
@@ -72,6 +73,7 @@
             services.AddTransient<ICitiesService, CitiesService>();
             services.AddTransient<IBuildingsService, BuildingService>();
             services.AddTransient<IReportsService, ReportService>();
+            services.AddTransient<ICalculationMonthlyFeesService, CalculationMonthlyFeesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

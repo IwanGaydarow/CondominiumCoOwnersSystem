@@ -12,6 +12,12 @@
 
         public const string CompanyAddress = "ул.Поп Харитон 87, Варна";
 
+        public const string PaymentMethodCountOfApartment = "Според броя на апартаменти";
+
+        public const string PaymentMethodCountOfPeople = "Според брой хора живеещи в апартамента";
+
+        public const string PaymentMethodIdealParts = "Според идеалните части на апартамента";
+
         public const int CityNameLenght = 100;
 
         public const int BuildingNameLenght = 20;

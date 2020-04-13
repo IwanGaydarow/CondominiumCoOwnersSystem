@@ -16,7 +16,7 @@
             <h5 class="card-title">Вие сте наши клиенти от: <time datetime="@Model.CreatedOn.ToString("O")"></time></h5>
             <h6>(@Model.TimeTillNow месеца)</h6>
             <p class="card-text">Брой апартаменти в сградата е @Model.ApartmentsCount, а разпределението на таксите е @Model.PaymentMethodAsString.ToLower().</p>
-            <p class="card-text">Сумата която събирате за Фонд ремонт и обновление е: @Model.FundRepairFee, като се разпределя @Model.FundRepairTypeOfDestribution.ToLower()</p>
+            <p class="card-text">Сумата която събирате за Фонд ремонт и обновление е: @Model.FundRepairFee, като се разпределя @Model.FundReoairTypeOfDestributionAsString.ToLower()</p>
             <p class="card-text">Имате сметки за комунални услуги получавате от: @String.Join(", ", Model.BuildingUtilityBills.Select(x => x.UtilityName).ToArray())</p>
             @foreach (var buildingService in Model.BuildingServiceSubscriptions)
             {

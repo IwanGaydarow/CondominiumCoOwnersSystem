@@ -1,0 +1,91 @@
+﻿@model CondominiumCoOwnersSystem.Web.ViewModels.Reports.BuildingDistributionReportViewModel
+@{
+    this.ViewData["Tittle"] = "Reports";
+}
+
+<div class="container">
+    <div class="alert-dark text-wrap text-lg-center">@Model.Street</div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Апартамент</th>
+                <th>Обитатели</th>
+                @foreach (var utility in Model.UtilityBills)
+                {
+                    <th>@utility.UtilityName</th>
+                }
+                @foreach (var subscription in Model.SubscriptionBills)
+                {
+                    <th>@subscription.CompanyName</th>
+                }
+                @if (Model.AdditionalRepairsBills.Any())
+                {
+                    foreach (var bill in Model.AdditionalRepairsBills)
+                    {
+                        <th>@bill.MadeBy (@bill.Description)</th>
+                    }
+                }
+                <th>Фонд ремонт и обновление</th>
+                <th>Обслужване</th>
+                <th>Общо</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var apartment in Model.Apartments.OrderBy(x => x.Number))
+            {
+                <tr>
+                    <th>№ @apartment.Number</th>
+                    <th>@apartment.Inhabitants</th>
+                    @foreach (var eachUtility in Model.ApartmentsUtilityTax)
+                    {
+                        foreach (var utility in eachUtility.Where(x => x.Key == apartment.Id))
+                        {
+                            <th>@utility.Value лв</th>
+                        }
+                    }
+                    @foreach (var eachSubscription in Model.ApartmentsSubscriptionTax)
+                    {
+                        foreach (var subscription in eachSubscription.Where(x => x.Key == apartment.Id))
+                        {
+                            <th>@subscription.Value лв</th>
+                        }
+                    }
+                    @if (Model.ApartmentsAdditionalTax.Any())
+                    {
+                        foreach (var eachTax in Model.ApartmentsAdditionalTax)
+                        {
+                            foreach (var tax in eachTax.Where(x => x.Key == apartment.Id))
+                            {
+                                <th>@tax.Value лв</th>
+                            }
+                        }
+                    }
+                    <th>@Model.ApartmentsFundRepairTax.First(kvp => kvp.Key == apartment.Id).Value</th>
+                    <th>3,99 лв</th>
+                    <th>12,34 lv</th>
+                </tr>
+            }
+            <tr>
+                <th>Общо:</th>
+                <th>@Model.Apartments.Sum(x => x.Inhabitants)</th>
+                @foreach (var utility in Model.UtilityBills)
+                {
+                    <th>@utility.Cost лв</th>
+                }   
+                @foreach (var subscription in Model.SubscriptionBills)
+                {
+                    <th>@subscription.Fee лв</th>
+                }
+                @if (Model.AdditionalRepairsBills.Any())
+                {
+                    foreach (var bill in Model.AdditionalRepairsBills)
+                    {
+                        <th>@bill.Cost лв</th>
+                    }
+                }
+                <th>@Model.FundRepairFee лв</th>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

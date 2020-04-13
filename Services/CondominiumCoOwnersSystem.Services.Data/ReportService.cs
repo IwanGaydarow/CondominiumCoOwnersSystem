@@ -1,8 +1,10 @@
 ﻿namespace CondominiumCoOwnersSystem.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
+    using CondominiumCoOwnersSystem.Common;
     using CondominiumCoOwnersSystem.Data.Common.Repositories;
     using CondominiumCoOwnersSystem.Data.Models;
     using CondominiumCoOwnersSystem.Data.Models.Enums;
@@ -12,29 +14,52 @@
     {
         private readonly IDeletableEntityRepository<BuildingServiceSubscription> serviceRepository;
         private readonly IDeletableEntityRepository<Company> companyRepositor;
+        private readonly IDeletableEntityRepository<Building> buildingRepository;
+        private readonly IDeletableEntityRepository<BuildingUtilityBills> utilityBillsRepository;
+        private readonly IDeletableEntityRepository<BuildingAdditionalRepairs> additionalRepairsRepository;
 
         public ReportService(
             IDeletableEntityRepository<BuildingServiceSubscription> serviceRepository,
-            IDeletableEntityRepository<Company> companyRepositor)
+            IDeletableEntityRepository<Company> companyRepositor,
+            IDeletableEntityRepository<Building> buildingRepository,
+            IDeletableEntityRepository<BuildingUtilityBills> utilityBillsRepository,
+            IDeletableEntityRepository<BuildingAdditionalRepairs> additionalRepairsRepository)
         {
             this.serviceRepository = serviceRepository;
             this.companyRepositor = companyRepositor;
-        }
-
-        public string ConvertPaymentMethodToString(PaymentMethod paymentMethod)
-        {
-            return paymentMethod switch
-            {
-                PaymentMethod.CountOfApartment => "Според броя на апартаменти",
-                PaymentMethod.CountOfPeople => "Според брой хора живеещи в апартамента",
-                PaymentMethod.IdealParts => "Според идеалните части на апартамента",
-                _ => "Не е решено",
-            };
+            this.buildingRepository = buildingRepository;
+            this.utilityBillsRepository = utilityBillsRepository;
+            this.additionalRepairsRepository = additionalRepairsRepository;
         }
 
         public T GetCompanyInfoById<T>(int companyId)
         {
             return this.companyRepositor.All().Where(x => x.Id == companyId).To<T>().FirstOrDefault();
+        }
+
+        public T GetDistributionReportForBuilding<T>(int buildingId)
+        {
+            var query = this.buildingRepository.All().Where(x => x.Id == buildingId);
+
+            return query.To<T>().FirstOrDefault();
+        }
+
+        public IEnumerable<T> GetFiltrateUtilityBillsForReport<T>(int buildingId, int month)
+        {
+            return this.utilityBillsRepository.AllWithDeleted()
+                .Where(x => x.BuildingId == buildingId && x.CreatedOn.Month == month).To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetFiltrateAdditionalRepairsForReport<T>(int buildingId, int month)
+        {
+            return this.additionalRepairsRepository.AllWithDeleted()
+                .Where(x => x.BuildingId == buildingId && x.CreatedOn.Month == month).To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetFiltrateSubscriptionBillsForReport<T>(int buildingId, int month)
+        {
+            return this.serviceRepository.AllWithDeleted()
+                .Where(x => x.BuildingId == buildingId && x.CreatedOn.Month == month).To<T>().ToList();
         }
 
         /// <summary>
@@ -52,6 +77,20 @@
             var oldestDate = query.Select(x => x.CreatedOn).First();
 
             return query.Where(x => x.CreatedOn <= oldestDate).To<T>().ToList();
+        }
+
+        /// <summary>
+        /// Convert paymentMethod to bulgarin translation.This method is here, because only Data-Service layar knows about paymentMethod model.
+        /// </summary>
+        public string ConvertPaymentMethodToString(PaymentMethod paymentMethod)
+        {
+            return paymentMethod switch
+            {
+                PaymentMethod.CountOfApartment => GlobalConstants.PaymentMethodCountOfApartment,
+                PaymentMethod.CountOfPeople => GlobalConstants.PaymentMethodCountOfPeople,
+                PaymentMethod.IdealParts => GlobalConstants.PaymentMethodIdealParts,
+                _ => " ",
+            };
         }
     }
 }
