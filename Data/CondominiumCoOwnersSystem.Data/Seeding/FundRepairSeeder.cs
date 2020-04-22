@@ -31,10 +31,10 @@
                     new FundRepair { Fee = 50M, BuildingId = 9, TypeOfDestribution = PaymentMethod.CountOfPeople },
                 };
 
-            fundRepairs = fundRepairs.Reverse<FundRepair>().ToList();
             foreach (var fundRepair in fundRepairs)
             {
                 await dbContext.FundRepairs.AddAsync(fundRepair);
+                await dbContext.SaveChangesAsync();
             }
         }
     }

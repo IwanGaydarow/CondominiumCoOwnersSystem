@@ -31,10 +31,10 @@
                           new Building { Street = "ул.Шипка 20", PaymentMethod = PaymentMethod.IdealParts, CityId = 3, FundRepairId = 9 },
                         };
 
-            buildings = buildings.Reverse<Building>().ToList();
             foreach (var building in buildings)
             {
                 await dbContext.Buildings.AddAsync(building);
+                await dbContext.SaveChangesAsync();
             }
         }
     }

@@ -74,10 +74,10 @@
                     new Service { BuildingServiceSubscriptionId = 9, Description = "Почистване на общите части.", CreatedOn = new DateTime(2020, 3, 13) },
                 };
 
-            services = services.Reverse<Service>().ToList();
             foreach (var service in services)
             {
                 await dbContext.Services.AddAsync(service);
+                await dbContext.SaveChangesAsync();
             }
         }
     }

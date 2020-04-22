@@ -57,10 +57,10 @@
                     new BuildingUtilityBills { BuildingId = 9, Cost = 5.55M, UtilityId = 6, CreatedOn = new DateTime(2020, 3, 15, 12, 34, 34) },
                 };
 
-            buildingBills = buildingBills.Reverse<BuildingUtilityBills>().ToList();
             foreach (var biil in buildingBills)
             {
                 await dbContext.BuildingUtilityBills.AddAsync(biil);
+                await dbContext.SaveChangesAsync();
             }
         }
     }

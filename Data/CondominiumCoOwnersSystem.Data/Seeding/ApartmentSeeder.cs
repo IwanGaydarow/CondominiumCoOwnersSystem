@@ -76,7 +76,7 @@
                     new Apartment { BuildingId = 3, Floor = 2, Number = 7, IdealParts = 6.86M, Inhabitants = 2, },
                     new Apartment { BuildingId = 3, Floor = 2, Number = 8, IdealParts = 4.9M, Inhabitants = 0, },
                     new Apartment { BuildingId = 3, Floor = 4, Number = 9, IdealParts = 23.85M, Inhabitants = 4, },
-                    new Apartment { BuildingId = 3, Floor = 4, Number = 9, IdealParts = 23.85M, Inhabitants = 4, },
+                    new Apartment { BuildingId = 3, Floor = 4, Number = 10, IdealParts = 0M, Inhabitants = 4, },
 
                     new Apartment { BuildingId = 4, Floor = 1, Number = 1, IdealParts = 4.469235M, Inhabitants = 3, },
                     new Apartment { BuildingId = 4, Floor = 1, Number = 2, IdealParts = 2.05528M, Inhabitants = 2, },
@@ -188,11 +188,10 @@
                     new Apartment { BuildingId = 9, Floor = 3, Number = 6, IdealParts = 20.4698M, Inhabitants = 2, },
                 };
 
-            apartments = apartments.Reverse<Apartment>().ToList();
-
             foreach (var apartment in apartments)
             {
                 await dbContext.AddAsync(apartment);
+                await dbContext.SaveChangesAsync();
             }
         }
     }

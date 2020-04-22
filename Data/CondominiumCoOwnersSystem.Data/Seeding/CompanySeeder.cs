@@ -7,7 +7,7 @@
 
     using CondominiumCoOwnersSystem.Data.Models;
 
-    public class CompaniesSeeder : ISeeder
+    public class CompanySeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
@@ -30,10 +30,10 @@
                     new Company { Name = "Гаражни Врати АД", Address = "Пловдив, ул.Прилеп 43", Email = "parkingdoors@abv.bg", CompanyTypeId = 4 },
                 };
 
-            companies = companies.Reverse<Company>().ToList();
             foreach (var company in companies)
             {
                 await dbContext.Companies.AddAsync(company);
+                await dbContext.SaveChangesAsync();
             }
         }
     }

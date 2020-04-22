@@ -30,7 +30,7 @@
                               new UtilitySeeder(),
                               new CitySeeder(),
                               new CompanyTypeSeeder(),
-                              new CompaniesSeeder(),
+                              new CompanySeeder(),
                               new BuildingSeeder(),
                               new FundRepairSeeder(),
                               new BuildingUtilityBillsSeeder(),

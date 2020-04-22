@@ -19,12 +19,12 @@
             var utilities =
                 new List<Utility>()
                 {
-                    new Utility { Name = "ВиК Пловдив" },
-                    new Utility { Name = "Софийска Вода" },
-                    new Utility { Name = "ВиК Варна" },
-                    new Utility { Name = "ЕНЕРГО-ПРО" },
-                    new Utility { Name = "ЕВН" },
                     new Utility { Name = "ЧЕЗ" },
+                    new Utility { Name = "ЕВН" },
+                    new Utility { Name = "ЕНЕРГО-ПРО" },
+                    new Utility { Name = "ВиК Варна" },
+                    new Utility { Name = "Софийска Вода" },
+                    new Utility { Name = "ВиК Пловдив" },
                 };
 
             foreach (var utility in utilities)

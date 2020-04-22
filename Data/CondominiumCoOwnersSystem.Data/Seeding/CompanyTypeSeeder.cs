@@ -19,15 +19,16 @@
             var companyTypes =
                 new List<CompanyType>()
                 {
-                    new CompanyType { TypeOfServices = "Поддръжка на гаражни врати" },
-                    new CompanyType { TypeOfServices = "Озеленителна фирма" },
-                    new CompanyType { TypeOfServices = "Фирма за почистване" },
                     new CompanyType { TypeOfServices = "Асансъорна фирма" },
+                    new CompanyType { TypeOfServices = "Фирма за почистване" },
+                    new CompanyType { TypeOfServices = "Озеленителна фирма" },
+                    new CompanyType { TypeOfServices = "Поддръжка на гаражни врати" },
                 };
 
             foreach (var companyType in companyTypes)
             {
                 await dbContext.CompanyTypes.AddAsync(companyType);
+                await dbContext.SaveChangesAsync();
             }
         }
     }

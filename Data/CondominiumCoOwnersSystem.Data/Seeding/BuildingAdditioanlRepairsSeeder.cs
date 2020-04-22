@@ -74,10 +74,10 @@
                     },
                 };
 
-            buildingAdditioanRepairs = buildingAdditioanRepairs.Reverse<BuildingAdditionalRepairs>().ToList();
             foreach (var buildingAddRepair in buildingAdditioanRepairs)
             {
                 await dbContext.BuildingAdditionalRepairs.AddAsync(buildingAddRepair);
+                await dbContext.SaveChangesAsync();
             }
         }
     }

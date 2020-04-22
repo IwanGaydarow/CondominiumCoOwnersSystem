@@ -19,14 +19,15 @@
             var cities =
                 new List<City>
                 {
+                    new City { Name = "София" },
                     new City { Name = "Варна" },
                     new City { Name = "Пловдив" },
-                    new City { Name = "София" },
                 };
 
             foreach (var city in cities)
             {
                 await dbContext.Cities.AddAsync(city);
+                await dbContext.SaveChangesAsync();
             }
         }
     }
