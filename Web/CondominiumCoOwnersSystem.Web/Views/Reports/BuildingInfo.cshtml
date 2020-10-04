@@ -18,38 +18,47 @@
             <p class="card-text">Брой апартаменти в сградата е @Model.ApartmentsCount, а разпределението на таксите е @Model.PaymentMethodAsString.ToLower().</p>
             <p class="card-text">Сумата която събирате за Фонд ремонт и обновление е: @Model.FundRepairFee, като се разпределя @Model.FundReoairTypeOfDestributionAsString.ToLower()</p>
             <p class="card-text">Имате сметки за комунални услуги получавате от: @String.Join(", ", Model.BuildingUtilityBills.Select(x => x.UtilityName).ToArray())</p>
-            @foreach (var buildingService in Model.BuildingServiceSubscriptions)
-            {
-                <div class="card">
-                    <div class="card-header">
-                        <h3>@buildingService.CompanyName</h3>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Фирмата Ви обслужва от: <time datetime="@buildingService.CreatedOn.ToString("O")"></time></h5>
-                        <p>Месечната такса на фирмата @buildingService.Fee лв</p>
-                        <hr />
-                        <p>За информация относно фирмата и услугата която извършва натиснете бутона.</p>
-                        <div>
-                            <button type="button" class="btn-info">Информация</button>
+            <div class="company-info">
+                @foreach (var buildingService in Model.BuildingServiceSubscriptions)
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>@buildingService.CompanyName</h3>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Фирмата Ви обслужва от: <time datetime="@buildingService.CreatedOn.ToString("O")"></time></h5>
+                            <p>Месечната такса на фирмата @buildingService.Fee лв</p>
+                            <hr />
+                            <p>За информация относно фирмата и услугата която извършва натиснете бутона.</p>
+                            <div>
+                                <button type="button" class="btn-info">Информация</button>
+                            </div>
+                        </div>
+                        <div class="test" style="display: none">
+                            <vc:company-info company-id="@buildingService.CompanyId"></vc:company-info>
                         </div>
                     </div>
-                    <div  class="test" style="display: none">
-                        <vc:company-info company-id="@buildingService.CompanyId"></vc:company-info>
-                    </div>
-                </div>
-            }
+                }
+            </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
     <script>
-        let buttons = document.querySelectorAll('.btn-info');
-        for (var i = 0; i < buttons.length; i++) {
-            var btn = buttons[i];
-            btn.addEventListener('click', () => {
-                $('.test').slideToggle();
-            });
-        };
+        let buttons = document.getElementsByClassName('company-info')[0];
+        buttons.addEventListener('click', (e) => {
+            if (e.target.className === 'btn-info') {
+                let card = e.target.offsetParent;
+                let cardChildren = card.children;
+                let moreInfo = Array.from(cardChildren).find(el => el.className === 'test');
+
+                if (moreInfo.style.display === 'none') {
+                    moreInfo.style.display = 'block';
+                } else {
+                    moreInfo.style.display = 'none';
+                }
+            }
+        });
     </script>
 }
