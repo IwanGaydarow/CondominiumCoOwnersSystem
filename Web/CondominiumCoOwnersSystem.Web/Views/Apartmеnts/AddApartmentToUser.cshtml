@@ -27,7 +27,7 @@
 @section Scripts {
     <script>
         function loadBuildings() {
-            var cityId = document.getElementById("selectedCity").value;
+            let cityId = document.getElementById("selectedCity").value;
             $.ajax({
                 url: "/Apartmеnts/BuildingToAddApartment",
                 type: "GET",
@@ -44,7 +44,7 @@
     </script>
     <script>
         function loadApartments() {
-            var buildingId = document.getElementById("selectedBuilding").value;
+            let buildingId = document.getElementById("selectedBuilding").value;
             $.ajax({
                 url: "/Apartmеnts/FreeApartmentsToAdd",
                 type: "GET",

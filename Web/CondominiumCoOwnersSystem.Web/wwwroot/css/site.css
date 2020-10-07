@@ -8,6 +8,33 @@ a.navbar-brand {
 }
 
 
+/* Report index page styles*/
+.info-message {
+    display: block;
+    text-align: center;
+}
+
+.building-info {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.info-card {
+    margin-top: 15px;
+    margin-left: 77px;
+}
+
+.building-info select {
+    width: 40%;
+    display: block;
+    margin: 5px auto;
+}
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
